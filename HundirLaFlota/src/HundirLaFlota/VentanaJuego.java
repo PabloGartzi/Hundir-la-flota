@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JSplitPane;
 import java.awt.GridLayout;
+import javax.swing.JButton;
 
 public class VentanaJuego extends JFrame {
 
@@ -58,11 +59,16 @@ public class VentanaJuego extends JFrame {
 		
 		JPanel panel_4 = new JPanel();
 		splitPane.setLeftComponent(panel_4);
-		panel_4.setLayout(new GridLayout(1, 0, 0, 0));
+		panel_4.setLayout(new GridLayout(10, 10, 0, 0));
 		
 		JPanel panel_5 = new JPanel();
 		splitPane.setRightComponent(panel_5);
 		panel_5.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		for(int i = 0; i<100; i++) {
+			JPanel panel_6 = new JPanel();
+			panel_4.add(panel_6);
+		}
 	}
 
 }
