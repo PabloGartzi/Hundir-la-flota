@@ -28,7 +28,7 @@ public abstract class Jugador {
 		return tableroDisparo;
 	}
 	
-	public TableroBarco getTableroDisparo() {
+	public TableroBarco getTableroBarco() {
 		return tableroBarco;
 	}
 	
