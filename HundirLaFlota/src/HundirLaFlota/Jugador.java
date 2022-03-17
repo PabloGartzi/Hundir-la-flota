@@ -1,15 +1,14 @@
 package HundirLaFlota;
 
-import java.util.ArrayList;
-
 public abstract class Jugador {
 	
 	private int dinero;
-	private ArrayList<Integer> listaArmas;
+	private Integer[] listaArmas;
 	private TableroDisparo tableroDisparo;
 	private TableroBarco tableroBarco;
 	
 	public Jugador() {
+		listaArmas = new Integer[4];
 		
 	}
 	

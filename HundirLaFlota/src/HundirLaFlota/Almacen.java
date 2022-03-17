@@ -1,19 +1,16 @@
 package HundirLaFlota;
 
-import java.util.ArrayList;
 
 public class Almacen {
 	private Almacen mAlmacen;
-	private ArrayList<Integer> listaArmamento;
+	private Integer[] listaArmamento;
 	
 	private Almacen() {
-		listaArmamento = new ArrayList<Integer>(4);
-		listaArmamento.set(0, 100);
-		listaArmamento.set(1, 50);
-		listaArmamento.set(2, 100);
-		listaArmamento.set(3, 100);
-		listaArmamento.set(4, 100);
-		
+		listaArmamento = new Integer[4];
+		listaArmamento[0]=100;
+		listaArmamento[1]=100;
+		listaArmamento[2]=100;
+		listaArmamento[3]=100;		
 		mAlmacen = this;
 	}
 	
