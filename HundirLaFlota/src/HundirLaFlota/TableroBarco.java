@@ -4,7 +4,7 @@ public class TableroBarco {
 	private Barco[][] tablero = new Barco[10][10];
 	
 	public Barco[][] getTabla() {
-		
+		return null;
 	}
 	public boolean hayBarco() {
 		return false;
