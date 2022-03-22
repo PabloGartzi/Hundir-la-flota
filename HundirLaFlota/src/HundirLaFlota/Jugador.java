@@ -20,13 +20,17 @@ public abstract class Jugador {
 		return false;
 	}
 	
-	public boolean colocarBarco(Barco pBarco, Coordenada pCoordenada, boolean pDireccion) {
+	public void colocarBarco(Barco pBarco, Coordenada pCoordenada, boolean pDireccion) {
 		if(pDireccion) {
-			for(int i=0; i=pBarco.getTipoBarco().tamano; i++) {
-				tableroBarco
+			for(int i=0; i<=pBarco.getTamano(); i++) {
+				tableroBarco.setBarco(new Coordenada(pCoordenada.getX()+i, pCoordenada.getY()));
 			}
 		}
-		return false;
+		else {
+			for(int i=0; i<=pBarco.getTamano(); i++) {
+				tableroBarco.setBarco(new Coordenada(pCoordenada.getX(), pCoordenada.getY()+i));
+			}
+		}
 	}
 	
 	public TableroDisparo getTableroDisparo() {

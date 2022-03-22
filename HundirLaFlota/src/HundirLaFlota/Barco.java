@@ -39,4 +39,8 @@ public class Barco {
 	public void setPartesBarco (boolean[] pPartesBarco) {
 		partesBarco=pPartesBarco;
 	}
+	
+	public int getTamano() {
+		return tamano;
+	}
 }
