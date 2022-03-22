@@ -1,18 +1,27 @@
+
 package HundirLaFlota;
 
 public class Barco {
 	private int tamano;
 	private int turnosEscudo;
 	private boolean hundido;
-	private boolean partesBarco[];
+	private boolean[] partesBarco;
 	private TipoBarco tipo;
 	
+	public TipoBarco getTipoBarco() {
+		return tipo;
+	}
+	
+	private void setTipoBarco(TipoBarco pTipo) {
+		tipo=pTipo;
+	}
+	
 	private boolean getHundido() {
-		return false;
+		return hundido;
 	}
 	
 	private void setHundido(boolean pHundido) {
-		
+		hundido=pHundido;
 	}
 	
 	public void reparar() {
@@ -20,10 +29,10 @@ public class Barco {
 	}
 	
 	public boolean[] getPartesBarco(){
-		return null;
+		return partesBarco;
 	}
 	
 	public void setPartesBarco (boolean[] pPartesBarco) {
-		
+		partesBarco=pPartesBarco;
 	}
 }
