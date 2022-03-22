@@ -12,6 +12,5 @@ public class TableroBarco {
 	public void tocarBarco(Barco pBarco) {
 		
 	}
-	
-	
+
 }
