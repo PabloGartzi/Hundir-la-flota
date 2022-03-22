@@ -5,10 +5,10 @@ public class Barco {
 	private int tamano;
 	private int turnosEscudo;
 	private boolean hundido;
-	private boolean partesBarco[];
+	private boolean[] partesBarco;
 	private TipoBarco tipo;
 	
-	private TipoBarco getTipoBarco() {
+	public TipoBarco getTipoBarco() {
 		return tipo;
 	}
 	
@@ -29,10 +29,10 @@ public class Barco {
 	}
 	
 	public boolean[] getPartesBarco(){
-		return 
+		return partesBarco;
 	}
 	
 	public void setPartesBarco (boolean[] pPartesBarco) {
-		
+		partesBarco=pPartesBarco;
 	}
 }
