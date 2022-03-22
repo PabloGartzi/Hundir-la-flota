@@ -20,7 +20,12 @@ public abstract class Jugador {
 		return false;
 	}
 	
-	public boolean colocarBarco() {
+	public boolean colocarBarco(Barco pBarco, Integer pX, Integer pY, boolean pDireccion) {
+		if(pDireccion) {
+			for(int i=0; i=pBarco.getTipoBarco().tamano; i++) {
+				tableroBarco.
+			}
+		}
 		return false;
 	}
 	
