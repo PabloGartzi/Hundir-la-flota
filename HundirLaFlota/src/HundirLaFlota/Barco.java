@@ -25,7 +25,11 @@ public class Barco {
 	}
 	
 	public void reparar() {
-		
+		for (int i=0; i<partesBarco.length; i++) {
+			if (partesBarco[i]==true){
+				partesBarco[i]=false;
+			}
+		}
 	}
 	
 	public boolean[] getPartesBarco(){
