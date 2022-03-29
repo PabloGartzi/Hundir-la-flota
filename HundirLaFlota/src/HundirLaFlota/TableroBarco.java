@@ -1,23 +1,25 @@
 package HundirLaFlota;
 
 public class TableroBarco {
-	private Casilla[] tabla;
+	private Casilla[][] tablero = new Casilla[10][10];
 	
 	public TableroBarco() {
-		tabla = new boolean[10][10];
-		
+		super();
 		
 	}
-	public Casilla[] getTabla() {
-		return tabla;
+	public Casilla[][] getTabla() {
+		return tablero;
 	}
-	public boolean hayBarco(Casilla pCasilla) {
-		
+	public boolean hayBarco() {
 		return false;
 	}
 	public void tocarBarco(Barco pBarco) {
 		
 	}
-
 	
+
+	public void setBarco(Coordenada pCoordenada) {
+		Casilla casilla = new Casilla(pCoordenada, true);
+		tablero[pCoordenada.getX()][pCoordenada.getY()] = casilla;
+	}
 }
