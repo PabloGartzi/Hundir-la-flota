@@ -2,13 +2,13 @@ package HundirLaFlota;
 
 public class Ordenador extends Jugador {
 	
-	private Ordenador mOrdenador;
+	private static Ordenador mOrdenador = new Ordenador();
 	
 	private Ordenador() {
 		mOrdenador = this;
 	}
 	
-	public Ordenador getHumano() {
+	public static Ordenador getOrdenador() {
 		return mOrdenador;
 	}
 

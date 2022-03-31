@@ -9,7 +9,8 @@ public abstract class Jugador {
 	
 	public Jugador() {
 		listaArmas = new Integer[4];
-		
+		tableroDisparo = new TableroDisparo();
+		tableroBarco = new TableroBarco();		
 	}
 	
 	public boolean disparar(Integer pX, Integer pY) {
