@@ -2,27 +2,27 @@ package HundirLaFlota;
 
 public class TableroDisparo {
 	
-	private boolean[][] tablero = new boolean[10][10];
+	private boolean[][] tabla;
 	
 	public TableroDisparo() {
-		
+		tabla = new boolean[10][10];
 		
 	}
-	public boolean disparo(Integer pX, Integer pY) {
+	public boolean disparo(Casilla pCasilla) {
 		return false;
 		
 	}
-	public void disparoAgua(Integer pX, Integer pY) {
+	public void disparoAgua(Casilla pCasilla) {
 		
 	}
-	public void disparoBarco(Integer pX, Integer pY) {
+	public void disparoBarco(Casilla pCasilla) {
 		
 	}
-	public boolean estaRepetido(Integer pX, Integer pY) {
+	public boolean estaRepetido(Casilla pCasilla) {
 		return false;
 		
 	}
-	public void actuarCasilla(Integer pX, Integer pY) {
+	public void actuarCasilla(Casilla pCasilla) {
 		
 	}
 	public boolean quedanBarcos() {
