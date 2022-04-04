@@ -2,13 +2,13 @@ package HundirLaFlota;
 
 public class Humano extends Jugador {
 	
-	private Humano mHumano;
+	private static Humano mHumano = new Humano();
 	
 	private Humano() {
 		mHumano = this;
 	}
 	
-	public Humano getHumano() {
+	public static Humano getHumano() {
 		return mHumano;
 	}
 

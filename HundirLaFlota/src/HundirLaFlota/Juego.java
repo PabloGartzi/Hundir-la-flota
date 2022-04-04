@@ -2,6 +2,8 @@ package HundirLaFlota;
 
 public class Juego {
 	private Juego mJuego;
+	public Humano humanoJ;
+	public Ordenador ordenadorJ;
 	
 	private Juego() {
 		
@@ -13,7 +15,19 @@ public class Juego {
 		
 	}
 	public void inicializar() {
+		humanoJ = crearHumano();
+		ordenadorJ = crearOrdenador();	
 		
+	}
+	
+	private Humano crearHumano() {
+		Humano jugadorH = Humano.getHumano();
+		return jugadorH;
+	}
+	
+	private Ordenador crearOrdenador() {
+		Ordenador jugadorO = Ordenador.getOrdenador();
+		return jugadorO;
 	}
 	
 }
