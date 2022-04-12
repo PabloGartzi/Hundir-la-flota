@@ -6,11 +6,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
+import javax.swing.JLabel;
 
 public class VentanaInicial extends JFrame {
 
@@ -23,6 +25,7 @@ public class VentanaInicial extends JFrame {
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JButton btnNewButton;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -115,6 +118,7 @@ public class VentanaInicial extends JFrame {
 			panel_1.setLayout(new GridLayout(3, 0, 0, 0));
 			panel_1.add(getPanel_2());
 			panel_1.add(getBtnNewButton());
+			panel_1.add(getLblNewLabel());
 		}
 		return panel_1;
 	}
@@ -131,5 +135,10 @@ public class VentanaInicial extends JFrame {
 			btnNewButton = new JButton("JUGAR");
 		}
 		return btnNewButton;
+	}
+	private JLabel getLblNewLabel() {
+		lblNewLabel = new JLabel();
+		lblNewLabel.setIcon(new ImageIcon("fototarde.jpg"));
+		return lblNewLabel;
 	}
 }
