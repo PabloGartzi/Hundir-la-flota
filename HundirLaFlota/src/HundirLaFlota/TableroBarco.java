@@ -16,7 +16,7 @@ public class TableroBarco {
 	
 	public boolean hayBarcoEnLaZona(Coordenada pCoordenadaPrimera, Coordenada pCoordenadaUltima) {
 		return getStreamCoordenadas(pCoordenadaPrimera, pCoordenadaUltima)
-				.allMatch(c -> !tablero[c.getX()][c.getY()].getHayBarco());
+				.allMatch(c -> tablero[c.getX()][c.getY()].getHayBarco());
 	}
 	
 	
@@ -25,9 +25,16 @@ public class TableroBarco {
 	}
 	
 
-	public void setBarco(Coordenada pCoordenada) {
-		Casilla casilla = new Casilla(pCoordenada, true);
-		tablero[pCoordenada.getX()][pCoordenada.getY()] = casilla;
+	public void setBarco(Coordenada pCoordenada, Barco pBarco, boolean pOrientacion) {
+		Coordenada coorUltima;
+		if(pOrientacion)
+			coorUltima = new Coordenada(pCoordenada.getX(), pCoordenada.getY() + pBarco.getTamano());
+		else
+			coorUltima = new Coordenada(pCoordenada.getX() + pBarco.getTamano(), pCoordenada.getY());
+		if(!hayBarcoEnLaZona(pCoordenada, coorUltima)) {
+			
+		}
+		
 		
 	}
 	
