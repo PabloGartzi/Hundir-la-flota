@@ -10,6 +10,8 @@ import javax.swing.JRadioButton;
 import java.awt.GridLayout;
 import javax.swing.JTextPane;
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
+
 import java.awt.Color;
 import java.awt.SystemColor;
 
@@ -22,6 +24,7 @@ public class VentanaColocarBarcos extends JFrame {
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JTextPane txtpnTipobarco;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final ButtonGroup eleccionCasilla = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -55,12 +58,24 @@ public class VentanaColocarBarcos extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanel(), BorderLayout.CENTER);
 		contentPane.add(getPanel_1(), BorderLayout.EAST);
+		
+		for(int i = 0; i<10; i++) {
+			for(int j=0; j<10; j++) {
+				JCheckBox botonBarco = new JCheckBox();
+				if(i%2!=0 && j%2!=0 || i%2==0 && j%2==0)
+					botonBarco.setBackground(Color.BLACK);
+				else
+					botonBarco.setBackground(Color.WHITE);
+				eleccionCasilla.add(botonBarco);
+				panel.add(botonBarco);
+			}
+		}
 	}
 
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setLayout(new GridLayout(0, 10, 0, 0));
+			panel.setLayout(new GridLayout(10, 10, 0, 0));
 		}
 		return panel;
 	}
@@ -100,4 +115,5 @@ public class VentanaColocarBarcos extends JFrame {
 		}
 		return txtpnTipobarco;
 	}
+	
 }
