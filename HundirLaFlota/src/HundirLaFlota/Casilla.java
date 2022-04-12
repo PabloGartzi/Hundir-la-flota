@@ -1,12 +1,12 @@
 package HundirLaFlota;
 
-public record Casilla(Coordenada pCoordenada, boolean pEstado) {
+public record Casilla(Coordenada pCoordenada, boolean pBarco) {
 	public Coordenada getCoordenada() {
 		return pCoordenada;
 	}
 	
-	public boolean getEstado() {
-		return pEstado;
+	public boolean getHayBarco() {
+		return pBarco;
 	}
 	
 }
