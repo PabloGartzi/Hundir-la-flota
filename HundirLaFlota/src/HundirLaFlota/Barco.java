@@ -7,20 +7,32 @@ public class Barco {
 	private boolean hundido;
 	private boolean[] partesBarco;
 	private TipoBarco tipo;
+	private Coordenada coordenadaInicial;
+	
+	public Barco(TipoBarco pTipo, Coordenada pCoordenada) {
+		tipo = pTipo;
+		coordenadaInicial = pCoordenada;
+		tamano = pTipo.getTamano();
+		hundido = false;
+		partesBarco = new boolean[tamano];
+		for(int i=0; i<tamano; i++) {
+			partesBarco[i]=false;
+		}
+	}
 	
 	public TipoBarco getTipoBarco() {
 		return tipo;
 	}
 	
-	private void setTipoBarco(TipoBarco pTipo) {
-		tipo=pTipo;
+	public Coordenada getCoordenadaIncial() {
+		return coordenadaInicial;
 	}
-	
-	private boolean getHundido() {
+
+	public boolean getHundido() {
 		return hundido;
 	}
 	
-	private void setHundido(boolean pHundido) {
+	public void setHundido(boolean pHundido) {
 		hundido=pHundido;
 	}
 	
@@ -32,15 +44,20 @@ public class Barco {
 		}
 	}
 	
-	public boolean[] getPartesBarco(){
-		return partesBarco;
-	}
-	
-	public void setPartesBarco (boolean[] pPartesBarco) {
-		partesBarco=pPartesBarco;
-	}
-	
 	public int getTamano() {
 		return tamano;
+	}
+	
+	public void tocarParte(int pParte) {
+		partesBarco[pParte] = true;
+		
+		for(boolean b: partesBarco) {
+			if(b)
+				hundido = true;
+			else {
+				hundido = false;
+				break;
+			}
+		}
 	}
 }

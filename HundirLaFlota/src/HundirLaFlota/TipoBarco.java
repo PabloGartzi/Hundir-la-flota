@@ -11,5 +11,9 @@ public enum TipoBarco {
 	this.tamano= pTamano;
 	}
 	
+	public int getTamano() {
+		return tamano;
+	}
+	
 	
 }

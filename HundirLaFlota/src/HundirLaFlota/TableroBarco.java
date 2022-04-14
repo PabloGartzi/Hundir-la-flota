@@ -7,6 +7,11 @@ public class TableroBarco {
 	private Casilla[][] tablero = new Casilla[10][10];
 	
 	public TableroBarco() {
+		for(int i=0; i<10; i++) {
+			for(int j = 0; j<10; j++) {
+				tablero[i][j] = new Casilla(new Coordenada(i,j), false, null);
+			}
+		}
 				
 	}
 	
@@ -19,12 +24,11 @@ public class TableroBarco {
 				.allMatch(c -> tablero[c.getX()][c.getY()].getHayBarco());
 	}
 	
-	
-	public void tocarBarco(Barco pBarco) {
-		
+	public void tocarBarco(Barco pBarco, Coordenada pCoordenada) {
+		int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
+		pBarco.tocarParte(posicion);
 	}
 	
-
 	public void setBarco(Coordenada pCoordenada, Barco pBarco, boolean pOrientacion) {
 		Coordenada coorUltima;
 		if(pOrientacion)
@@ -39,9 +43,7 @@ public class TableroBarco {
 					
 				}
 			}
-		}
-		
-		
+		}		
 	}
 	
 	private Stream<Coordenada> getStreamCoordenadas (Coordenada pCoordenadaPrimera, Coordenada pCoordenadaUltima) {
