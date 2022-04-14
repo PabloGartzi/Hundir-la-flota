@@ -24,12 +24,12 @@ public abstract class Jugador {
 	public void colocarBarco(Barco pBarco, Coordenada pCoordenada, boolean pDireccion) {
 		if(pDireccion) {
 			for(int i=0; i<=pBarco.getTamano(); i++) {
-				tableroBarco.setBarco(new Coordenada(pCoordenada.getX()+i, pCoordenada.getY()));
+				tableroBarco.setBarco(new Coordenada(pCoordenada.getX()+i, pCoordenada.getY()), pBarco, pDireccion);
 			}
 		}
 		else {
 			for(int i=0; i<=pBarco.getTamano(); i++) {
-				tableroBarco.setBarco(new Coordenada(pCoordenada.getX(), pCoordenada.getY()+i));
+				tableroBarco.setBarco(new Coordenada(pCoordenada.getX(), pCoordenada.getY()+i), pBarco, pDireccion);
 			}
 		}
 	}
