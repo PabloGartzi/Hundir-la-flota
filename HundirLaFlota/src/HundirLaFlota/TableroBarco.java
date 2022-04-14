@@ -24,6 +24,10 @@ public class TableroBarco {
 				.allMatch(c -> tablero[c.getX()][c.getY()].getHayBarco());
 	}
 	
+	public boolean hayBarco(Coordenada pCoordenada) {
+		return tablero[pCoordenada.getX()][pCoordenada.getY()].getHayBarco();
+	}
+	
 	public void tocarBarco(Barco pBarco, Coordenada pCoordenada) {
 		int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
 		pBarco.tocarParte(posicion);

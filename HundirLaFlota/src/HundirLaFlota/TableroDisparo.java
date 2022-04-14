@@ -2,32 +2,40 @@ package HundirLaFlota;
 
 public class TableroDisparo {
 	
-	private boolean[][] tabla;
+	private boolean[][] tablaDisparos;
 	
 	public TableroDisparo() {
-		tabla = new boolean[10][10];
-		
+		tablaDisparos = new boolean[10][10];
+				
 	}
-	public boolean disparo(Casilla pCasilla) {
+	
+	public boolean disparo(Coordenada pCoordenada, TableroBarco pTableroBarco) {
+		if(pTableroBarco.hayBarco(pCoordenada)) {
+			tablaDisparos[pCoordenada.getX()][pCoordenada.getY()] = true;
+			pTableroBarco.tocarBarco(pTableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada);
+			return true;
+		}
 		return false;
+	}
+	
+	public void disparoAgua(Coordenada pCoordenada) {
 		
 	}
-	public void disparoAgua(Casilla pCasilla) {
+	
+	public void disparoBarco(Coordenada pCoordenada) {
 		
 	}
-	public void disparoBarco(Casilla pCasilla) {
-		
-	}
-	public boolean estaRepetido(Casilla pCasilla) {
+	
+	public boolean estaRepetido(Coordenada pCoordenada) {
 		return false;
+	}
+	
+	public void actuarCasilla(Coordenada pCoordenada) {
 		
 	}
-	public void actuarCasilla(Casilla pCasilla) {
-		
-	}
+	
 	public boolean quedanBarcos() {
 		return false;
-		
 	}
 	
 }
