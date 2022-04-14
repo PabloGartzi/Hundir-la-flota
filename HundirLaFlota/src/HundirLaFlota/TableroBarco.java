@@ -32,7 +32,13 @@ public class TableroBarco {
 		else
 			coorUltima = new Coordenada(pCoordenada.getX() + pBarco.getTamano(), pCoordenada.getY());
 		if(!hayBarcoEnLaZona(pCoordenada, coorUltima)) {
-			
+			for(int i=pCoordenada.getX(); i<=coorUltima.getX(); i++) {
+				for(int j=pCoordenada.getY(); j<=coorUltima.getY(); j++) {
+					
+					tablero[i][j] = new Casilla(new Coordenada(i,j), true, pBarco);
+					
+				}
+			}
 		}
 		
 		
