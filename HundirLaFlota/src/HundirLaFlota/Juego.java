@@ -1,16 +1,17 @@
 package HundirLaFlota;
 
 public class Juego {
-	private Juego mJuego;
+	private static Juego mJuego = new Juego();
 	public Humano humanoJ;
 	public Ordenador ordenadorJ;
 	
 	private Juego() {
-		
+		mJuego = this;
 	}
-	public Juego getMJuego() {
+	public static Juego getMJuego() {
 		return mJuego;
 	}
+	
 	public void act() {
 		
 	}
