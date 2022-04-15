@@ -14,6 +14,7 @@ import javax.swing.JCheckBox;
 
 import java.awt.Color;
 import java.awt.SystemColor;
+import javax.swing.JButton;
 
 public class VentanaColocarBarcos extends JFrame {
 
@@ -25,6 +26,8 @@ public class VentanaColocarBarcos extends JFrame {
 	private JTextPane txtpnTipobarco;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup eleccionCasilla = new ButtonGroup();
+	private JButton btnNewButton;
+	private JCheckBox[][] botonesEleccion;
 
 	/**
 	 * Launch the application.
@@ -50,6 +53,7 @@ public class VentanaColocarBarcos extends JFrame {
 	}
 
 	private void initialize() {
+		botonesEleccion = new JCheckBox[10][10];
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -58,6 +62,7 @@ public class VentanaColocarBarcos extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanel(), BorderLayout.CENTER);
 		contentPane.add(getPanel_1(), BorderLayout.EAST);
+		contentPane.add(getBtnNewButton(), BorderLayout.SOUTH);
 		
 		for(int i = 0; i<10; i++) {
 			for(int j=0; j<10; j++) {
@@ -68,6 +73,7 @@ public class VentanaColocarBarcos extends JFrame {
 					botonBarco.setBackground(Color.WHITE);
 				eleccionCasilla.add(botonBarco);
 				panel.add(botonBarco);
+				botonesEleccion[i][j] = botonBarco;
 			}
 		}
 	}
@@ -116,4 +122,10 @@ public class VentanaColocarBarcos extends JFrame {
 		return txtpnTipobarco;
 	}
 	
+	private JButton getBtnNewButton() {
+		if (btnNewButton == null) {
+			btnNewButton = new JButton("Colocar");
+		}
+		return btnNewButton;
+	}
 }

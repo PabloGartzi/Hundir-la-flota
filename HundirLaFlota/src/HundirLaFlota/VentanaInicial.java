@@ -13,8 +13,10 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class VentanaInicial extends JFrame {
+public class VentanaInicial extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -119,6 +121,7 @@ public class VentanaInicial extends JFrame {
 			panel_1.add(getPanel_2());
 			panel_1.add(getBtnNewButton());
 			panel_1.add(getLblNewLabel());
+			btnNewButton.addActionListener(this);
 		}
 		return panel_1;
 	}
@@ -140,5 +143,14 @@ public class VentanaInicial extends JFrame {
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon("fototarde.jpg"));
 		return lblNewLabel;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().equals(btnNewButton)) {
+			this.dispose();
+			VentanaColocarBarcos vCB = new VentanaColocarBarcos();
+			vCB.setVisible(true);
+		}
 	}
 }
