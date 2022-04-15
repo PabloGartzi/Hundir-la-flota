@@ -15,6 +15,8 @@ import javax.swing.JCheckBox;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaColocarBarcos extends JFrame {
 
@@ -125,6 +127,11 @@ public class VentanaColocarBarcos extends JFrame {
 	private JButton getBtnNewButton() {
 		if (btnNewButton == null) {
 			btnNewButton = new JButton("Colocar");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					//TODO que compruebe si hay barco, mandar el error si no hay, colocar barco, hacer lista de barcos
+				}
+			});
 		}
 		return btnNewButton;
 	}

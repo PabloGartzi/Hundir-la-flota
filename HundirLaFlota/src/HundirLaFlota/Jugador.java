@@ -42,4 +42,10 @@ public abstract class Jugador {
 		return tableroBarco;
 	}
 	
+	public boolean hayBarcoEnZona(Barco pBarco, Coordenada pCoordenada, boolean pDireccion) {
+		if(pDireccion)
+			return tableroBarco.hayBarcoEnLaZona(pCoordenada, new Coordenada(pCoordenada.getX()+pBarco.getTamano(), pCoordenada.getY()));
+		return tableroBarco.hayBarcoEnLaZona(pCoordenada, new Coordenada(pCoordenada.getX(), pCoordenada.getY()+pBarco.getTamano()));
+		
+	}
 }
