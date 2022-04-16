@@ -35,6 +35,7 @@ public class VentanaColocarBarcos extends JFrame {
 	private HashMap<JCheckBox, Coordenada> botonesEleccion;
 	private Jugador jHumano = Humano.getHumano();
 	private Barco barcoColocando;
+	private TipoBarco[] barcosAColocar;
 	/**
 	 * Launch the application.
 	 */
@@ -60,6 +61,7 @@ public class VentanaColocarBarcos extends JFrame {
 
 	private void initialize() {
 		botonesEleccion = new HashMap<JCheckBox, Coordenada>();
+		barcosAColocar = Juego.getMJuego().getTiposBarco();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -133,7 +135,7 @@ public class VentanaColocarBarcos extends JFrame {
 			btnNewButton = new JButton("Colocar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO que compruebe si hay barco, mandar el error si no hay, colocar barco, hacer lista de barcos
+					//TODO hacer lista de barcos
 					if(!jHumano.hayBarcoEnZona(barcoColocando, botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected())) {
 						jHumano.colocarBarco(barcoColocando, botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
 						pintarCasillas(barcoColocando.getTamano(), rdbtnNewRadioButton.isSelected(), botonesEleccion.get(eleccionCasilla.getSelection()));

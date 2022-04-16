@@ -21,7 +21,7 @@ public class TableroBarco {
 	
 	public boolean hayBarcoEnLaZona(Coordenada pCoordenadaPrimera, Coordenada pCoordenadaUltima) {
 		return getStreamCoordenadas(pCoordenadaPrimera, pCoordenadaUltima)
-				.allMatch(c -> tablero[c.getX()][c.getY()].getHayBarco());
+				.anyMatch(c -> tablero[c.getX()][c.getY()].getHayBarco());
 	}
 	
 	public boolean hayBarco(Coordenada pCoordenada) {
