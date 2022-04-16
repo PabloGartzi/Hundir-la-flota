@@ -18,6 +18,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class VentanaColocarBarcos extends JFrame {
 
 	private JPanel contentPane;
@@ -29,8 +32,9 @@ public class VentanaColocarBarcos extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup eleccionCasilla = new ButtonGroup();
 	private JButton btnNewButton;
-	private JCheckBox[][] botonesEleccion;
-
+	private HashMap<JCheckBox, Coordenada> botonesEleccion;
+	private Jugador jHumano = Humano.getHumano();
+	private Barco barcoColocando;
 	/**
 	 * Launch the application.
 	 */
@@ -55,7 +59,7 @@ public class VentanaColocarBarcos extends JFrame {
 	}
 
 	private void initialize() {
-		botonesEleccion = new JCheckBox[10][10];
+		botonesEleccion = new HashMap<JCheckBox, Coordenada>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -75,7 +79,7 @@ public class VentanaColocarBarcos extends JFrame {
 					botonBarco.setBackground(Color.WHITE);
 				eleccionCasilla.add(botonBarco);
 				panel.add(botonBarco);
-				botonesEleccion[i][j] = botonBarco;
+				botonesEleccion.put(botonBarco, new Coordenada(i,j));
 			}
 		}
 	}
@@ -130,9 +134,42 @@ public class VentanaColocarBarcos extends JFrame {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//TODO que compruebe si hay barco, mandar el error si no hay, colocar barco, hacer lista de barcos
+					if(!jHumano.hayBarcoEnZona(barcoColocando, botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected())) {
+						jHumano.colocarBarco(barcoColocando, botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
+						pintarCasillas(barcoColocando.getTamano(), rdbtnNewRadioButton.isSelected(), botonesEleccion.get(eleccionCasilla.getSelection()));
+					}
+					else {
+						HayBarcoZona vBarcoZona = new HayBarcoZona();
+						vBarcoZona.setVisible(true);
+						eleccionCasilla.clearSelection();
+						buttonGroup.clearSelection();
+					}
 				}
 			});
 		}
 		return btnNewButton;
+	}
+	
+	private static <T, E> Set<T> getBotonPorCoordenada(Map<T, E> map, E value) {
+	    return map.entrySet()
+	              .stream()
+	              .filter(entry -> Objects.equals(entry.getValue(), value))
+	              .map(Map.Entry::getKey)
+	              .collect(Collectors.toSet());
+	}
+	
+	private void pintarCasillas(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada) {
+		if(pDireccion) {
+			for(int i=0; i<= pNumeroCasillas; i++) {
+				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX()+i, pPrimeraCoordenada.getY());
+				getBotonPorCoordenada(botonesEleccion, nCoord).iterator().next().setBackground(Color.YELLOW);
+			}
+		}
+		else {
+			for(int i=0; i<= pNumeroCasillas; i++) {
+				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX(), pPrimeraCoordenada.getY()+i);
+				getBotonPorCoordenada(botonesEleccion, nCoord).iterator().next().setBackground(Color.YELLOW);
+			}
+		}
 	}
 }
