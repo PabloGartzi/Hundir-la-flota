@@ -7,6 +7,10 @@ public class Juego {
 	public Ordenador ordenadorJ;
 	private TipoBarco[] listaTiposBarco = { TipoBarco.PORTAAVIONES, TipoBarco.SUBMARINO, TipoBarco.SUBMARINO, TipoBarco.DESTRUCTOR, TipoBarco.DESTRUCTOR, TipoBarco.DESTRUCTOR, TipoBarco.FRAGATA, TipoBarco.FRAGATA, TipoBarco.FRAGATA, TipoBarco.FRAGATA};
 	
+	public void main(String[] args) {
+		inicializar();
+	}
+	
 	private Juego() {
 		mJuego = this;
 	}

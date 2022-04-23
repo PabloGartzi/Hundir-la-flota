@@ -8,9 +8,11 @@ public class Barco {
 	private boolean[] partesBarco;
 	private TipoBarco tipo;
 	private Coordenada coordenadaInicial;
+	private boolean orientacion;
 	
-	public Barco(TipoBarco pTipo, Coordenada pCoordenada) {
+	public Barco(TipoBarco pTipo, Coordenada pCoordenada, boolean pOrientacion) {
 		tipo = pTipo;
+		orientacion = pOrientacion;
 		coordenadaInicial = pCoordenada;
 		tamano = pTipo.getTamano();
 		hundido = false;
@@ -18,6 +20,10 @@ public class Barco {
 		for(int i=0; i<tamano; i++) {
 			partesBarco[i]=false;
 		}
+	}
+	
+	public boolean getOrientacion() {
+		return orientacion;
 	}
 	
 	public TipoBarco getTipoBarco() {

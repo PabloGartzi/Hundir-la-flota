@@ -34,8 +34,8 @@ public class VentanaColocarBarcos extends JFrame {
 	private JButton btnNewButton;
 	private HashMap<JCheckBox, Coordenada> botonesEleccion;
 	private Jugador jHumano = Humano.getHumano();
-	private Barco barcoColocando;
 	private TipoBarco[] barcosAColocar;
+	private int barcosColocarIndiceIterador;
 	/**
 	 * Launch the application.
 	 */
@@ -62,6 +62,7 @@ public class VentanaColocarBarcos extends JFrame {
 	private void initialize() {
 		botonesEleccion = new HashMap<JCheckBox, Coordenada>();
 		barcosAColocar = Juego.getMJuego().getTiposBarco();
+		barcosColocarIndiceIterador = 0;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -135,7 +136,7 @@ public class VentanaColocarBarcos extends JFrame {
 			btnNewButton = new JButton("Colocar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO hacer lista de barcos
+					Barco barcoColocando = new Barco(barcosAColocar[barcosColocarIndiceIterador], botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
 					if(!jHumano.hayBarcoEnZona(barcoColocando, botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected())) {
 						jHumano.colocarBarco(barcoColocando, botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
 						pintarCasillas(barcoColocando.getTamano(), rdbtnNewRadioButton.isSelected(), botonesEleccion.get(eleccionCasilla.getSelection()));
