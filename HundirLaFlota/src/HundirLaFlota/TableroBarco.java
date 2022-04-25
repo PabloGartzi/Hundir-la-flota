@@ -36,9 +36,9 @@ public class TableroBarco {
 	public void setBarco(Coordenada pCoordenada, Barco pBarco, boolean pOrientacion) {
 		Coordenada coorUltima;
 		if(pOrientacion)
-			coorUltima = new Coordenada(pCoordenada.getX(), pCoordenada.getY() + pBarco.getTamano());
+			coorUltima = new Coordenada(Math.max(pCoordenada.getX() + pBarco.getTamano(), 0), pCoordenada.getY() );
 		else
-			coorUltima = new Coordenada(pCoordenada.getX() + pBarco.getTamano(), pCoordenada.getY());
+			coorUltima = new Coordenada(pCoordenada.getX(), Math.min(pCoordenada.getY() + pBarco.getTamano(), 9));
 		if(!hayBarcoEnLaZona(pCoordenada, coorUltima)) {
 			for(int i=pCoordenada.getX(); i<=coorUltima.getX(); i++) {
 				for(int j=pCoordenada.getY(); j<=coorUltima.getY(); j++) {
@@ -51,8 +51,8 @@ public class TableroBarco {
 	}
 	
 	private Stream<Coordenada> getStreamCoordenadas (Coordenada pCoordenadaPrimera, Coordenada pCoordenadaUltima) {
-		return IntStream.range(Math.max(0, pCoordenadaPrimera.getX()-1), Math.min(9, pCoordenadaPrimera.getX()+1))
-				.mapToObj(x -> IntStream.range(Math.max(0, pCoordenadaPrimera.getY()-1), Math.min(9, pCoordenadaPrimera.getY()+1))
+		return IntStream.rangeClosed(Math.max(0, pCoordenadaPrimera.getX()-1), Math.min(9, pCoordenadaUltima.getX()+1))
+				.mapToObj(x -> IntStream.rangeClosed(Math.max(0, pCoordenadaPrimera.getY()-1), Math.min(9, pCoordenadaUltima.getY()+1))
 						.mapToObj(y -> new Coordenada(x, y)))
 				.flatMap(c -> c); // Para convertir un flujo de flujos de coordenadas en un flujo de coordenadas
 	}

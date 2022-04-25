@@ -10,6 +10,7 @@ import javax.swing.JRadioButton;
 import java.awt.GridLayout;
 import javax.swing.JTextPane;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JCheckBox;
 
 import java.awt.Color;
@@ -32,7 +33,9 @@ public class VentanaColocarBarcos extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup eleccionCasilla = new ButtonGroup();
 	private JButton btnNewButton;
-	private HashMap<JCheckBox, Coordenada> botonesEleccion;
+	private HashMap<ButtonModel, Coordenada> botonesEleccion;
+	private HashMap<Coordenada, JCheckBox> botonesCoordenadaBoton;
+	private HashMap<ButtonModel, JCheckBox> botonesModelos;
 	private Jugador jHumano = Humano.getHumano();
 	private TipoBarco[] barcosAColocar;
 	private int barcosColocarIndiceIterador;
@@ -60,7 +63,9 @@ public class VentanaColocarBarcos extends JFrame {
 	}
 
 	private void initialize() {
-		botonesEleccion = new HashMap<JCheckBox, Coordenada>();
+		botonesEleccion = new HashMap<>();
+		botonesCoordenadaBoton = new HashMap<>();
+		botonesModelos = new HashMap<>();
 		barcosAColocar = Juego.getMJuego().getTiposBarco();
 		barcosColocarIndiceIterador = 0;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,9 +85,12 @@ public class VentanaColocarBarcos extends JFrame {
 					botonBarco.setBackground(Color.BLACK);
 				else
 					botonBarco.setBackground(Color.WHITE);
+				Coordenada coord = new Coordenada(i,j);
 				eleccionCasilla.add(botonBarco);
 				panel.add(botonBarco);
-				botonesEleccion.put(botonBarco, new Coordenada(i,j));
+				botonesEleccion.put(botonBarco.getModel(), coord);
+				botonesModelos.put(botonBarco.getModel(), botonBarco);
+				botonesCoordenadaBoton.put(coord, botonBarco);
 			}
 		}
 	}
@@ -108,7 +116,7 @@ public class VentanaColocarBarcos extends JFrame {
 
 	private JRadioButton getRadioButton_1() {
 		if (rdbtnNewRadioButton == null) {
-			rdbtnNewRadioButton = new JRadioButton("Horizontal");
+			rdbtnNewRadioButton = new JRadioButton("Vertical");
 			buttonGroup.add(rdbtnNewRadioButton);
 		}
 		return rdbtnNewRadioButton;
@@ -116,7 +124,7 @@ public class VentanaColocarBarcos extends JFrame {
 
 	private JRadioButton getRadioButton_2() {
 		if (rdbtnNewRadioButton_1 == null) {
-			rdbtnNewRadioButton_1 = new JRadioButton("Vertical");
+			rdbtnNewRadioButton_1 = new JRadioButton("Horizontal");
 			buttonGroup.add(rdbtnNewRadioButton_1);
 		}
 		return rdbtnNewRadioButton_1;
@@ -136,10 +144,13 @@ public class VentanaColocarBarcos extends JFrame {
 			btnNewButton = new JButton("Colocar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					System.out.println(botonesEleccion.get(eleccionCasilla.getSelection()));
 					Barco barcoColocando = new Barco(barcosAColocar[barcosColocarIndiceIterador], botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
+					//TODO no colocar en casillas de fuera
 					if(!jHumano.hayBarcoEnZona(barcoColocando, botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected())) {
-						jHumano.colocarBarco(barcoColocando, botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
+						jHumano.colocarBarco(barcoColocando, botonesEleccion.get( eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
 						pintarCasillas(barcoColocando.getTamano(), rdbtnNewRadioButton.isSelected(), botonesEleccion.get(eleccionCasilla.getSelection()));
+						barcosColocarIndiceIterador += 1;
 					}
 					else {
 						HayBarcoZona vBarcoZona = new HayBarcoZona();
@@ -163,15 +174,16 @@ public class VentanaColocarBarcos extends JFrame {
 	
 	private void pintarCasillas(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada) {
 		if(pDireccion) {
-			for(int i=0; i<= pNumeroCasillas; i++) {
+			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX()+i, pPrimeraCoordenada.getY());
-				getBotonPorCoordenada(botonesEleccion, nCoord).iterator().next().setBackground(Color.YELLOW);
+				botonesCoordenadaBoton.get(nCoord).setBackground(Color.YELLOW);
+				
 			}
 		}
 		else {
-			for(int i=0; i<= pNumeroCasillas; i++) {
+			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX(), pPrimeraCoordenada.getY()+i);
-				getBotonPorCoordenada(botonesEleccion, nCoord).iterator().next().setBackground(Color.YELLOW);
+				botonesCoordenadaBoton.get(nCoord).setBackground(Color.YELLOW);
 			}
 		}
 	}
