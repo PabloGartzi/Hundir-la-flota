@@ -36,7 +36,8 @@ public class VentanaColocarBarcos extends JFrame {
 	private HashMap<ButtonModel, Coordenada> botonesEleccion;
 	private HashMap<Coordenada, JCheckBox> botonesCoordenadaBoton;
 	private HashMap<ButtonModel, JCheckBox> botonesModelos;
-	private Jugador jHumano = Humano.getHumano();
+	private Humano jHumano = Humano.getHumano();
+	private Ordenador jOrdenador = Ordenador.getOrdenador();
 	private TipoBarco[] barcosAColocar;
 	private int barcosColocarIndiceIterador;
 	/**
@@ -146,8 +147,7 @@ public class VentanaColocarBarcos extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println(botonesEleccion.get(eleccionCasilla.getSelection()));
 					//TODO no colocar en casillas de fuera
-					if(rdbtnNewRadioButton.isSelected()) {
-						if(botonesEleccion.get(eleccionCasilla.getSelection()).getX() + barcosAColocar[barcosColocarIndiceIterador].getTamano()-1 > 9) {
+						if(!coordenadasDentro(botonesEleccion.get(eleccionCasilla.getSelection()), barcosAColocar[barcosColocarIndiceIterador].getTamano(),rdbtnNewRadioButton.isSelected())) {
 							CoordenadasFuera vCoorFue = new CoordenadasFuera();
 							vCoorFue.setVisible(true);
 							eleccionCasilla.clearSelection();
@@ -156,17 +156,7 @@ public class VentanaColocarBarcos extends JFrame {
 						else {
 							enviarInformacionBarco();
 						}
-					}else {
-						if(botonesEleccion.get(eleccionCasilla.getSelection()).getY() + barcosAColocar[barcosColocarIndiceIterador].getTamano()-1 > 9) {
-							CoordenadasFuera vCoorFue = new CoordenadasFuera();
-							vCoorFue.setVisible(true);
-							eleccionCasilla.clearSelection();
-							buttonGroup.clearSelection();
-						}
-						else {
-							enviarInformacionBarco();
-						}
-					}
+					
 					
 				}
 			});
@@ -213,6 +203,12 @@ public class VentanaColocarBarcos extends JFrame {
 	}
 	
 	private void colocarOrdenador() {
-		
+		jOrdenador.colocarBarcos(barcosAColocar);
+	}
+	
+	private boolean coordenadasDentro(Coordenada pCoord, int pTamano, boolean pDireccion) {
+		if(pDireccion)
+			return pCoord.getX()+pTamano-1<=9;
+		return pCoord.getY()+pTamano-1<=9;
 	}
 }
