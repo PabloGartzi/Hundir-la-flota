@@ -22,15 +22,16 @@ public abstract class Jugador {
 		return false;
 	}
 	
-	public void colocarBarco(Barco pBarco, Coordenada pCoordenada, boolean pDireccion) {
+	public void colocarBarco(TipoBarco pTipoBarco, Coordenada pCoordenada, boolean pDireccion) {
+		Barco barcoColocando = new Barco(pTipoBarco, pCoordenada, pDireccion);
 		if(pDireccion) {
-			for(int i=0; i<pBarco.getTamano(); i++) {
-				tableroBarco.setBarco(new Coordenada(pCoordenada.getX()+i, pCoordenada.getY()), pBarco, pDireccion);
+			for(int i=0; i<barcoColocando.getTamano(); i++) {
+				tableroBarco.setBarco(new Coordenada(pCoordenada.getX()+i, pCoordenada.getY()), barcoColocando, pDireccion);
 			}
 		}
 		else {
-			for(int i=0; i<pBarco.getTamano(); i++) {
-				tableroBarco.setBarco(new Coordenada(pCoordenada.getX(), pCoordenada.getY()+i), pBarco, pDireccion);
+			for(int i=0; i<barcoColocando.getTamano(); i++) {
+				tableroBarco.setBarco(new Coordenada(pCoordenada.getX(), pCoordenada.getY()+i), barcoColocando, pDireccion);
 			}
 		}
 	}
@@ -43,10 +44,10 @@ public abstract class Jugador {
 		return tableroBarco;
 	}
 	
-	public boolean hayBarcoEnZona(Barco pBarco, Coordenada pCoordenada, boolean pDireccion) {
+	public boolean hayBarcoEnZona(TipoBarco pTipoBarco, Coordenada pCoordenada, boolean pDireccion) {
 		if(pDireccion)
-			return tableroBarco.hayBarcoEnLaZona(pCoordenada, new Coordenada(pCoordenada.getX()+pBarco.getTamano()-1, pCoordenada.getY()));
-		return tableroBarco.hayBarcoEnLaZona(pCoordenada, new Coordenada(pCoordenada.getX(), pCoordenada.getY()+pBarco.getTamano()-1));
+			return tableroBarco.hayBarcoEnLaZona(pCoordenada, new Coordenada(pCoordenada.getX()+pTipoBarco.getTamano()-1, pCoordenada.getY()));
+		return tableroBarco.hayBarcoEnLaZona(pCoordenada, new Coordenada(pCoordenada.getX(), pCoordenada.getY()+pTipoBarco.getTamano()-1));
 		
 	}
 }

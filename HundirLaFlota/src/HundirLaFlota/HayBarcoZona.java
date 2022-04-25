@@ -33,7 +33,7 @@ public class HayBarcoZona extends JDialog {
 	 * Create the dialog.
 	 */
 	public HayBarcoZona() {
-		setBounds(100, 100, 450, 74);
+		setBounds(100, 100, 654, 127);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

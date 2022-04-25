@@ -145,32 +145,56 @@ public class VentanaColocarBarcos extends JFrame {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println(botonesEleccion.get(eleccionCasilla.getSelection()));
-					Barco barcoColocando = new Barco(barcosAColocar[barcosColocarIndiceIterador], botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
 					//TODO no colocar en casillas de fuera
-					if(!jHumano.hayBarcoEnZona(barcoColocando, botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected())) {
-						jHumano.colocarBarco(barcoColocando, botonesEleccion.get( eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
-						pintarCasillas(barcoColocando.getTamano(), rdbtnNewRadioButton.isSelected(), botonesEleccion.get(eleccionCasilla.getSelection()));
-						barcosColocarIndiceIterador += 1;
+					if(rdbtnNewRadioButton.isSelected()) {
+						if(botonesEleccion.get(eleccionCasilla.getSelection()).getX() + barcosAColocar[barcosColocarIndiceIterador].getTamano()-1 > 9) {
+							CoordenadasFuera vCoorFue = new CoordenadasFuera();
+							vCoorFue.setVisible(true);
+							eleccionCasilla.clearSelection();
+							buttonGroup.clearSelection();
+						}
+						else {
+							enviarInformacionBarco();
+						}
+					}else {
+						if(botonesEleccion.get(eleccionCasilla.getSelection()).getY() + barcosAColocar[barcosColocarIndiceIterador].getTamano()-1 > 9) {
+							CoordenadasFuera vCoorFue = new CoordenadasFuera();
+							vCoorFue.setVisible(true);
+							eleccionCasilla.clearSelection();
+							buttonGroup.clearSelection();
+						}
+						else {
+							enviarInformacionBarco();
+						}
 					}
-					else {
-						HayBarcoZona vBarcoZona = new HayBarcoZona();
-						vBarcoZona.setVisible(true);
-						eleccionCasilla.clearSelection();
-						buttonGroup.clearSelection();
-					}
+					
 				}
 			});
 		}
 		return btnNewButton;
 	}
 	
-	private static <T, E> Set<T> getBotonPorCoordenada(Map<T, E> map, E value) {
-	    return map.entrySet()
-	              .stream()
-	              .filter(entry -> Objects.equals(entry.getValue(), value))
-	              .map(Map.Entry::getKey)
-	              .collect(Collectors.toSet());
+	private void enviarInformacionBarco(){
+		
+		if(!jHumano.hayBarcoEnZona(barcosAColocar[barcosColocarIndiceIterador], botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected())) {
+			jHumano.colocarBarco(barcosAColocar[barcosColocarIndiceIterador], botonesEleccion.get( eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
+			pintarCasillas(barcosAColocar[barcosColocarIndiceIterador].getTamano(), rdbtnNewRadioButton.isSelected(), botonesEleccion.get(eleccionCasilla.getSelection()));
+			barcosColocarIndiceIterador += 1;
+			if(barcosColocarIndiceIterador == barcosAColocar.length-1) {
+				colocarOrdenador();
+				this.setVisible(false);
+				VentanaJuego vJuego = new VentanaJuego();
+				vJuego.setVisible(true);
+			}
+		}
+		else {
+			HayBarcoZona vBarcoZona = new HayBarcoZona();
+			vBarcoZona.setVisible(true);
+			eleccionCasilla.clearSelection();
+			buttonGroup.clearSelection();
+		}
 	}
+	
 	
 	private void pintarCasillas(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada) {
 		if(pDireccion) {
@@ -186,5 +210,9 @@ public class VentanaColocarBarcos extends JFrame {
 				botonesCoordenadaBoton.get(nCoord).setBackground(Color.YELLOW);
 			}
 		}
+	}
+	
+	private void colocarOrdenador() {
+		
 	}
 }
