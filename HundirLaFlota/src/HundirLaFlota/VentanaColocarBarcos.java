@@ -180,7 +180,7 @@ public class VentanaColocarBarcos extends JFrame {
 			jHumano.colocarBarco(barcosAColocar[barcosColocarIndiceIterador], botonesEleccion.get( eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
 			pintarCasillas(barcosAColocar[barcosColocarIndiceIterador].getTamano(), rdbtnNewRadioButton.isSelected(), botonesEleccion.get(eleccionCasilla.getSelection()));
 			barcosColocarIndiceIterador += 1;
-			if(barcosColocarIndiceIterador == barcosAColocar.length-1) {
+			if(barcosColocarIndiceIterador == barcosAColocar.length) {
 				colocarOrdenador();
 				this.setVisible(false);
 				VentanaJuego vJuego = new VentanaJuego();

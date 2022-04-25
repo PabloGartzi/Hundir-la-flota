@@ -36,9 +36,9 @@ public class TableroBarco {
 	public void setBarco(Coordenada pCoordenada, Barco pBarco, boolean pOrientacion) {
 		Coordenada coorUltima;
 		if(pOrientacion)
-			coorUltima = new Coordenada(Math.max(pCoordenada.getX() + pBarco.getTamano(), 0), pCoordenada.getY() );
+			coorUltima = new Coordenada(Math.max(pCoordenada.getX() + pBarco.getTamano()-1, 0), pCoordenada.getY() );
 		else
-			coorUltima = new Coordenada(pCoordenada.getX(), Math.min(pCoordenada.getY() + pBarco.getTamano(), 9));
+			coorUltima = new Coordenada(pCoordenada.getX(), Math.min(pCoordenada.getY() + pBarco.getTamano()-1, 9));
 		if(!hayBarcoEnLaZona(pCoordenada, coorUltima)) {
 			for(int i=pCoordenada.getX(); i<=coorUltima.getX(); i++) {
 				for(int j=pCoordenada.getY(); j<=coorUltima.getY(); j++) {
