@@ -124,7 +124,7 @@ public class VentanaJuego extends JFrame {
 		JButton btnNewButton_4 = new JButton("Acción");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				jHumano.prepararDisparo(botonesModeloACoordenada.get(botonesAccion.getSelection()), TipoDisparo.BOMBA);
 			}
 		});
 		panel_10.add(btnNewButton_4);

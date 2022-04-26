@@ -9,7 +9,7 @@ public class TableroDisparo {
 				
 	}
 	
-	public boolean disparo(Coordenada pCoordenada, TableroBarco pTableroBarco) {
+	public boolean disparo(Coordenada pCoordenada, TableroBarco pTableroBarco, TipoDisparo pDisparo) {
 		if(pTableroBarco.hayBarco(pCoordenada)) {
 			tablaDisparos[pCoordenada.getX()][pCoordenada.getY()] = true;
 			pTableroBarco.tocarBarco(pTableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada);

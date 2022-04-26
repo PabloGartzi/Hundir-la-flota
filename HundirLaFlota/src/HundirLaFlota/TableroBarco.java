@@ -19,6 +19,9 @@ public class TableroBarco {
 		return tablero;
 	}
 	
+	public Casilla getCasilla(Coordenada pCoordenada) {
+		return tablero[pCoordenada.getX()][pCoordenada.getY()];
+	}
 	public boolean hayBarcoEnLaZona(Coordenada pCoordenadaPrimera, Coordenada pCoordenadaUltima) {
 		return getStreamCoordenadas(pCoordenadaPrimera, pCoordenadaUltima)
 				.anyMatch(c -> tablero[c.getX()][c.getY()].getHayBarco());

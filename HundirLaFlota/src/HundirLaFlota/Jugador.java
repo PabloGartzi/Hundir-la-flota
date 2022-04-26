@@ -14,9 +14,22 @@ public abstract class Jugador {
 		
 	}
 	
-	public boolean disparar(Coordenada pCoordenada, TipoDisparo pDisparo) {
+	public boolean prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
+		if(this.getClass().equals(Humano.getHumano().getClass())) {
+			if(pDisparo.equals(TipoDisparo.BOMBA) || pDisparo.equals(TipoDisparo.MISIL)) {
+				this.tableroDisparo.disparo(pCoordenada, Ordenador.getOrdenador().getTableroBarco(), pDisparo);
+			}
+			else {
+				this.tableroDisparo.disparo(pCoordenada, this.getTableroBarco(), pDisparo);
+			}
+		}
+		else {
+			
+		}
 		return false;
 	}
+	
+	
 	
 	public boolean reparar() {
 		return false;
