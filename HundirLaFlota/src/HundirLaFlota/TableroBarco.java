@@ -38,12 +38,16 @@ public class TableroBarco {
 			case BOMBA:
 				int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
 				pBarco.tocarParte(posicion);
+				break;
+				
 			case MISIL:
 				pBarco.setHundido();
 				for(int i=0; i<pBarco.getTamano(); i++) {
 					pBarco.tocarParte(i);
 				}	
+				break;
 		}
+		
 		if(pBarco.getHundido())
 			barcosHundidos.add(pBarco);
 		

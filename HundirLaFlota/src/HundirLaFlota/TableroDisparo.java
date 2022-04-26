@@ -12,22 +12,25 @@ public class TableroDisparo {
 	public boolean[] disparo(Coordenada pCoordenada, TableroBarco pTableroBarco, TipoDisparo pDisparo) {
 		boolean finJuego = false;
 		boolean acierto = false;
-		boolean[] listBool = {acierto, finJuego};
+		
 		if(pTableroBarco.hayBarco(pCoordenada)) {
 			switch(pDisparo) {
 			case BOMBA:
 				tablaDisparos[pCoordenada.getX()][pCoordenada.getY()] = true;
 				finJuego = pTableroBarco.tocarBarco(pTableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.BOMBA);
 				acierto = true;
+				break;
 			
 			case MISIL:
 				tablaDisparos[pCoordenada.getX()][pCoordenada.getY()] = true;
 				finJuego = pTableroBarco.tocarBarco(pTableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.MISIL);
 				acierto = true;
+				break;
 			
 			}
 			
 		}
+		boolean[] listBool = {acierto, finJuego};
 		return listBool;
 	}
 	

@@ -57,14 +57,12 @@ public class Barco {
 	
 	public void tocarParte(int pParte) {
 		partesBarco[pParte] = true;
-		
+		int i=0;
 		for(boolean b: partesBarco) {
 			if(b)
-				hundido = true;
-			else {
-				hundido = false;
-				break;
+				i++;
+			if(i==tamano)
+				setHundido();
 			}
 		}
 	}
-}
