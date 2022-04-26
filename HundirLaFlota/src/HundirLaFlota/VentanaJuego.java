@@ -9,18 +9,29 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JSplitPane;
 import java.awt.GridLayout;
+import java.util.HashMap;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaJuego extends JFrame {
 
 	private JPanel contentPane;
 	private final ButtonGroup botonesTableroDisparo = new ButtonGroup();
 	private final ButtonGroup botonesCompra = new ButtonGroup();
-
+	private final ButtonGroup botonesAccion = new ButtonGroup();
+	
+	private HashMap<ButtonModel, Coordenada> botonesModeloACoordenada;
+	private HashMap<Coordenada, JCheckBox> botonesCoordenadaABoton;
+	private HashMap<ButtonModel, JCheckBox> botonesModeloABoton;
+	private Humano jHumano = Humano.getHumano();
+	private Ordenador jOrdenador = Ordenador.getOrdenador();
 	/**
 	 * Launch the application.
 	 */
@@ -41,6 +52,9 @@ public class VentanaJuego extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaJuego() {
+		botonesModeloACoordenada = new HashMap<>();
+		botonesCoordenadaABoton = new HashMap<>();
+		botonesModeloABoton  = new HashMap<>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1212, 602);
 		contentPane = new JPanel();
@@ -85,19 +99,34 @@ public class VentanaJuego extends JFrame {
 		
 		JPanel panel_10 = new JPanel();
 		panel_2.add(panel_10);
-		panel_10.setLayout(new GridLayout(4, 0, 0, 0));
+		panel_10.setLayout(new GridLayout(6, 0, 0, 0));
 		
 		JTextPane txtpnArmas = new JTextPane();
-		txtpnArmas.setText("ARMAS");
+		txtpnArmas.setText("HERRAMIENTAS");
 		panel_10.add(txtpnArmas);
 		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Bomba (100)");
-		panel_10.add(rdbtnNewRadioButton_3);
+		JRadioButton botonBomba = new JRadioButton("Bomba (100)");
+		botonesAccion.add(botonBomba);
+		panel_10.add(botonBomba);
 		
-		JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("Misiles (10)");
-		panel_10.add(rdbtnNewRadioButton_4);
+		JRadioButton botonMisil = new JRadioButton("Misiles (10)");
+		botonesAccion.add(botonMisil);
+		panel_10.add(botonMisil);
 		
-		JButton btnNewButton_4 = new JButton("Atacar");
+		JRadioButton botonRadar = new JRadioButton("Radar");
+		botonesAccion.add(botonRadar);
+		panel_10.add(botonRadar);
+		
+		JRadioButton botonEscudo = new JRadioButton("Escudo");
+		botonesAccion.add(botonEscudo);
+		panel_10.add(botonEscudo);
+		
+		JButton btnNewButton_4 = new JButton("Acción");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		panel_10.add(btnNewButton_4);
 		
 		JPanel panel_3 = new JPanel();
@@ -126,13 +155,14 @@ public class VentanaJuego extends JFrame {
 		
 		for(int i = 0; i<10; i++) {
 			for(int j=0; j<10; j++) {
-				JPanel panel_6 = new JPanel();
+				JCheckBox botonBarco = new JCheckBox();
 				if(i%2!=0 && j%2!=0 || i%2==0 && j%2==0)
-					panel_6.setBackground(Color.BLACK);
+					botonBarco.setBackground(Color.BLACK);
 				else
-					panel_6.setBackground(Color.WHITE);
+					botonBarco.setBackground(Color.WHITE);
 				
-				panel_4_1.add(panel_6);
+				anadirBotones(botonBarco, i, j);
+				panel_4_1.add(botonBarco);
 			}
 		}
 		
@@ -143,10 +173,22 @@ public class VentanaJuego extends JFrame {
 					botonBarco.setBackground(Color.BLACK);
 				else
 					botonBarco.setBackground(Color.WHITE);
-				botonesTableroDisparo.add(botonBarco);
+				
+				anadirBotones(botonBarco, i, j);
 				panel_5.add(botonBarco);
 			}
 		}
+		
 	}
+	
+	private void anadirBotones(JCheckBox pBoton, int pX, int pY) {
+		Coordenada coord = new Coordenada(pX, pY);
+		botonesModeloACoordenada.put(pBoton.getModel(), coord);
+		botonesModeloABoton.put(pBoton.getModel(), pBoton);
+		botonesCoordenadaABoton.put(coord, pBoton);
+		botonesTableroDisparo.add(pBoton);
+	}
+	
+	
 
 }

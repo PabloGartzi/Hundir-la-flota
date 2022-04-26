@@ -14,7 +14,7 @@ public abstract class Jugador {
 		
 	}
 	
-	public boolean disparar(Integer pX, Integer pY) {
+	public boolean disparar(Coordenada pCoordenada, TipoDisparo pDisparo) {
 		return false;
 	}
 	

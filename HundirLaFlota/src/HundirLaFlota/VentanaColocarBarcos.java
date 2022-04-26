@@ -146,7 +146,6 @@ public class VentanaColocarBarcos extends JFrame {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println(botonesEleccion.get(eleccionCasilla.getSelection()));
-					//TODO no colocar en casillas de fuera
 						if(!coordenadasDentro(botonesEleccion.get(eleccionCasilla.getSelection()), barcosAColocar[barcosColocarIndiceIterador].getTamano(),rdbtnNewRadioButton.isSelected())) {
 							CoordenadasFuera vCoorFue = new CoordenadasFuera();
 							vCoorFue.setVisible(true);
