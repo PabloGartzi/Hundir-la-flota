@@ -1,5 +1,8 @@
 package HundirLaFlota;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public abstract class Jugador {
 	
 	private int dinero;
@@ -7,14 +10,17 @@ public abstract class Jugador {
 	private TableroDisparo tableroDisparo;
 	private TableroBarco tableroBarco;
 	
+	private PropertyChangeSupport support;
+	
 	public Jugador() {
 		listaArmas = new Integer[4];
 		tableroDisparo = new TableroDisparo();
 		tableroBarco = new TableroBarco();	
+		support = new PropertyChangeSupport(this);
 		
 	}
 	
-	public boolean[] prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
+	public void prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
 		boolean[] listBool = new boolean[2];
 		if(this.getClass().equals(Humano.getHumano().getClass())) {
 			if(pDisparo.equals(TipoDisparo.BOMBA) || pDisparo.equals(TipoDisparo.MISIL)) {
@@ -27,7 +33,7 @@ public abstract class Jugador {
 		else {
 			
 		}
-		return listBool;
+		support.firePropertyChange("tableroDisparo", null, listBool);
 	}
 	
 	
@@ -63,5 +69,9 @@ public abstract class Jugador {
 			return tableroBarco.hayBarcoEnLaZona(pCoordenada, new Coordenada(pCoordenada.getX()+pTipoBarco.getTamano()-1, pCoordenada.getY()));
 		return tableroBarco.hayBarcoEnLaZona(pCoordenada, new Coordenada(pCoordenada.getX(), pCoordenada.getY()+pTipoBarco.getTamano()-1));
 		
+	}
+	
+	public void addObserver(PropertyChangeListener pList) {
+		support.addPropertyChangeListener(pList);
 	}
 }

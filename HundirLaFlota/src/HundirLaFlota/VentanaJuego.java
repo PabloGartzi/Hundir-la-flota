@@ -18,9 +18,11 @@ import javax.swing.ButtonModel;
 import javax.swing.JTextPane;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaJuego extends JFrame {
+public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
 	private JPanel contentPane;
 	private final ButtonGroup botonesTableroDisparo = new ButtonGroup();
@@ -126,20 +128,8 @@ public class VentanaJuego extends JFrame {
 		JButton btnNewButton_4 = new JButton("Acción");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean[] listBool = new boolean[2];
-				listBool = jHumano.prepararDisparo(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
-						TipoDisparo.BOMBA);
-				if (listBool[1]) {
-					FinJuego vFin = new FinJuego();
-					setVisible(false);
-					vFin.setVisible(true);
-				} else if (listBool[0]) {
-					botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.red);
-				}
-
-				else {
-					botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.blue);
-				}
+				jHumano.prepararDisparo(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
+						TipoDisparo.BOMBA);			
 			}
 		});
 		panel_10.add(btnNewButton_4);
@@ -193,7 +183,8 @@ public class VentanaJuego extends JFrame {
 				panel_5.add(botonBarco);
 			}
 		}
-
+		
+	jHumano.addObserver(this);	
 	}
 
 	private void anadirBotones(JCheckBox pBoton, int pX, int pY) {
@@ -202,6 +193,24 @@ public class VentanaJuego extends JFrame {
 		botonesModeloABoton.put(pBoton.getModel(), pBoton);
 		botonesCoordenadaABoton.put(coord, pBoton);
 		botonesTableroDisparo.add(pBoton);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
+		boolean[] listBool = new boolean[2];
+		listBool = (boolean[]) evt.getNewValue();
+		if (listBool[1]) {
+			FinJuego vFin = new FinJuego();
+			setVisible(false);
+			vFin.setVisible(true);
+		} else if (listBool[0]) {
+			botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.red);
+		}
+
+		else {
+			botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.blue);
+		}//TODO cosas por hacer
 	}
 
 }
