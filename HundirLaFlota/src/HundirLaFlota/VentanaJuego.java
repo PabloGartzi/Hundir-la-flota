@@ -124,7 +124,20 @@ public class VentanaJuego extends JFrame {
 		JButton btnNewButton_4 = new JButton("Acción");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jHumano.prepararDisparo(botonesModeloACoordenada.get(botonesAccion.getSelection()), TipoDisparo.BOMBA);
+				boolean[] listBool = new boolean[2];
+				listBool = jHumano.prepararDisparo(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()), TipoDisparo.BOMBA);
+				if(listBool[1]) {
+					FinJuego vFin = new FinJuego();
+					setVisible(false);
+					vFin.setVisible(true);
+				}
+				else if(listBool[0]) {
+					botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.red);
+				}
+				
+				else {
+					botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.blue);
+				}
 			}
 		});
 		panel_10.add(btnNewButton_4);

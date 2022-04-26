@@ -9,13 +9,26 @@ public class TableroDisparo {
 				
 	}
 	
-	public boolean disparo(Coordenada pCoordenada, TableroBarco pTableroBarco, TipoDisparo pDisparo) {
+	public boolean[] disparo(Coordenada pCoordenada, TableroBarco pTableroBarco, TipoDisparo pDisparo) {
+		boolean finJuego = false;
+		boolean acierto = false;
+		boolean[] listBool = {acierto, finJuego};
 		if(pTableroBarco.hayBarco(pCoordenada)) {
-			tablaDisparos[pCoordenada.getX()][pCoordenada.getY()] = true;
-			pTableroBarco.tocarBarco(pTableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada);
-			return true;
+			switch(pDisparo) {
+			case BOMBA:
+				tablaDisparos[pCoordenada.getX()][pCoordenada.getY()] = true;
+				finJuego = pTableroBarco.tocarBarco(pTableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.BOMBA);
+				acierto = true;
+			
+			case MISIL:
+				tablaDisparos[pCoordenada.getX()][pCoordenada.getY()] = true;
+				finJuego = pTableroBarco.tocarBarco(pTableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.MISIL);
+				acierto = true;
+			
+			}
+			
 		}
-		return false;
+		return listBool;
 	}
 	
 	public void disparoAgua(Coordenada pCoordenada) {

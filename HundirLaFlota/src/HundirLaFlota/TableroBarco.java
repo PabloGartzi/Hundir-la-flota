@@ -1,10 +1,12 @@
 package HundirLaFlota;
 
+import java.util.ArrayList;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class TableroBarco {
 	private Casilla[][] tablero = new Casilla[10][10];
+	private ArrayList<Barco> barcosHundidos = new ArrayList<>();
 	
 	public TableroBarco() {
 		for(int i=0; i<10; i++) {
@@ -31,9 +33,23 @@ public class TableroBarco {
 		return tablero[pCoordenada.getX()][pCoordenada.getY()].getHayBarco();
 	}
 	
-	public void tocarBarco(Barco pBarco, Coordenada pCoordenada) {
-		int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
-		pBarco.tocarParte(posicion);
+	public boolean tocarBarco(Barco pBarco, Coordenada pCoordenada, TipoDisparo pDisparo) {
+		switch(pDisparo) {
+			case BOMBA:
+				int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
+				pBarco.tocarParte(posicion);
+			case MISIL:
+				pBarco.setHundido();
+				for(int i=0; i<pBarco.getTamano(); i++) {
+					pBarco.tocarParte(i);
+				}	
+		}
+		if(pBarco.getHundido())
+			barcosHundidos.add(pBarco);
+		
+		if(barcosHundidos.size()==10)
+			return true;
+		return false;
 	}
 	
 	public void setBarco(Coordenada pCoordenada, Barco pBarco, boolean pOrientacion) {

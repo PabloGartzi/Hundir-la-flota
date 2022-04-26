@@ -14,19 +14,20 @@ public abstract class Jugador {
 		
 	}
 	
-	public boolean prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
+	public boolean[] prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
+		boolean[] listBool = new boolean[2];
 		if(this.getClass().equals(Humano.getHumano().getClass())) {
 			if(pDisparo.equals(TipoDisparo.BOMBA) || pDisparo.equals(TipoDisparo.MISIL)) {
-				this.tableroDisparo.disparo(pCoordenada, Ordenador.getOrdenador().getTableroBarco(), pDisparo);
+				listBool = this.tableroDisparo.disparo(pCoordenada, Ordenador.getOrdenador().getTableroBarco(), pDisparo);
 			}
 			else {
-				this.tableroDisparo.disparo(pCoordenada, this.getTableroBarco(), pDisparo);
+				listBool = this.tableroDisparo.disparo(pCoordenada, this.getTableroBarco(), pDisparo);
 			}
 		}
 		else {
 			
 		}
-		return false;
+		return listBool;
 	}
 	
 	

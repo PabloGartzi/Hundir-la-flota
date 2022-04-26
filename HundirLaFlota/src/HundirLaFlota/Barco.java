@@ -38,6 +38,11 @@ public class Barco {
 		return hundido;
 	}
 	
+	public void setHundido() {
+		hundido = true;
+		
+	}
+	
 	public void reparar() {
 		for (int i=0; i<partesBarco.length; i++) {
 			if (partesBarco[i]==true){
