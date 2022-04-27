@@ -47,4 +47,7 @@ public class Ordenador extends Jugador {
 		return pCoord.getY()+pTamano-1<=9;
 	}
 
+	public void disparar() {
+		
+	}
 }

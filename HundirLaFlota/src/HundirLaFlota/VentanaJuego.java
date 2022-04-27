@@ -130,6 +130,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			public void actionPerformed(ActionEvent e) {
 				jHumano.prepararDisparo(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
 						TipoDisparo.BOMBA);			
+				jOrdenador.disparar();
 			}
 		});
 		panel_10.add(btnNewButton_4);
