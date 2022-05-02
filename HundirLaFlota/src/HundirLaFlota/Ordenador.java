@@ -48,6 +48,9 @@ public class Ordenador extends Jugador {
 	}
 
 	public void disparar() {
+		this.prepararDisparo(new Coordenada(ran.nextInt(10), ran.nextInt(10)), TipoDisparo.BOMBA);
 		
 	}
+	
+
 }

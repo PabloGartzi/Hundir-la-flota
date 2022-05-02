@@ -24,6 +24,8 @@ public class Juego {
 	public static void inicializar() {
 		humanoJ = crearHumano();
 		ordenadorJ = crearOrdenador();	
+		humanoJ.setOponente(ordenadorJ);
+		ordenadorJ.setOponente(humanoJ);
 		VentanaInicial vI = new VentanaInicial();
 		vI.setVisible(true);
 	}

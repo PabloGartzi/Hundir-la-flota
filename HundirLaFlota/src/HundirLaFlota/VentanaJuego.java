@@ -26,6 +26,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
 	private JPanel contentPane;
 	private final ButtonGroup botonesTableroDisparo = new ButtonGroup();
+	private final ButtonGroup botonesTableroBarcos = new ButtonGroup();
 	private final ButtonGroup botonesCompra = new ButtonGroup();
 	private final ButtonGroup botonesAccion = new ButtonGroup();
 
@@ -129,7 +130,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jHumano.prepararDisparo(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
-						TipoDisparo.BOMBA);			
+						TipoDisparo.BOMBA);	
 				jOrdenador.disparar();
 			}
 		});
@@ -169,6 +170,9 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
 				anadirBotones(botonBarco, i, j);
 				panel_4_1.add(botonBarco);
+				
+				botonesTableroBarcos.add(botonBarco);
+				botonesCoordenadaABoton.put(new Coordenada(i, j), botonBarco);
 			}
 		}
 
@@ -182,6 +186,8 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
 				anadirBotones(botonBarco, i, j);
 				panel_5.add(botonBarco);
+				
+				botonesTableroDisparo.add(botonBarco);
 			}
 		}
 		
@@ -192,26 +198,39 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		Coordenada coord = new Coordenada(pX, pY);
 		botonesModeloACoordenada.put(pBoton.getModel(), coord);
 		botonesModeloABoton.put(pBoton.getModel(), pBoton);
-		botonesCoordenadaABoton.put(coord, pBoton);
-		botonesTableroDisparo.add(pBoton);
+		
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
 		boolean[] listBool = new boolean[2];
 		listBool = (boolean[]) evt.getNewValue();
-		if (listBool[1]) {
-			FinJuego vFin = new FinJuego();
-			setVisible(false);
-			vFin.setVisible(true);
-		} else if (listBool[0]) {
-			botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.red);
+		Coordenada prueba = (Coordenada) evt.getOldValue();
+		if(evt.getPropertyName().equals("tableroBarco")) {
+			if (listBool[1]) {
+				FinJuego vFin = new FinJuego();
+				setVisible(false);
+				vFin.setVisible(true);
+			} else if (listBool[0]) {
+				botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.red);
+			}
+	
+			else {
+				botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.blue);
+			}
+		} else{
+			if (listBool[1]) {
+				FinJuego vFin = new FinJuego();
+				setVisible(false);
+				vFin.setVisible(true);
+			} else if (listBool[0]) {
+				botonesCoordenadaABoton.get((Coordenada) evt.getOldValue()).setBackground(Color.red);
+			}
+	
+			else {
+				botonesCoordenadaABoton.get((Coordenada) evt.getOldValue()).setBackground(Color.blue);
+			}
 		}
-
-		else {
-			botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.blue);
-		}//TODO cosas por hacer
 	}
 
 }

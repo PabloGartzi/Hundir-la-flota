@@ -9,6 +9,7 @@ public abstract class Jugador {
 	private Integer[] listaArmas;
 	private TableroDisparo tableroDisparo;
 	private TableroBarco tableroBarco;
+	private Jugador jugadorOponente;
 	
 	private PropertyChangeSupport support;
 	
@@ -20,24 +21,44 @@ public abstract class Jugador {
 		
 	}
 	
-	public void prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
-		boolean[] listBool = new boolean[2];
-		if(this.getClass().equals(Humano.getHumano().getClass())) {
-			if(pDisparo.equals(TipoDisparo.BOMBA) || pDisparo.equals(TipoDisparo.MISIL)) {
-				listBool = this.tableroDisparo.disparo(pCoordenada, Ordenador.getOrdenador().getTableroBarco(), pDisparo);
-			}
-			else {
-				listBool = this.tableroDisparo.disparo(pCoordenada, this.getTableroBarco(), pDisparo);
-			}
-		}
-		else {
-			
-		}
-		support.firePropertyChange("tableroDisparo", null, listBool);
+	public void setOponente(Jugador pJugador) {
+		jugadorOponente = pJugador;
 	}
 	
+	public boolean[] disparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
+		boolean finJuego = false;
+		boolean acierto = false;
+		
+		if(tableroBarco.hayBarco(pCoordenada)) {
+			switch(pDisparo) {
+			case BOMBA:
+				tableroDisparo.actuarCasilla(pCoordenada);
+				finJuego = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.BOMBA);
+				acierto = true;
+				break;
+			
+			case MISIL:
+				tableroDisparo.actuarCasilla(pCoordenada);
+				finJuego = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.MISIL);
+				acierto = true;
+				break;
+			}
+		}
+		boolean[] listBool = {acierto, finJuego};
+		return listBool;
+	}
 	
-	
+	public void prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
+		boolean[] listBool = new boolean[2];
+			if(pDisparo.equals(TipoDisparo.BOMBA) || pDisparo.equals(TipoDisparo.MISIL)) {
+				listBool = jugadorOponente.disparo(pCoordenada, pDisparo);
+			}
+			else {
+				listBool = jugadorOponente.disparo(pCoordenada, pDisparo);
+			}
+			
+	}
+		
 	public boolean reparar() {
 		return false;
 	}

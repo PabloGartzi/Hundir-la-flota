@@ -11,4 +11,9 @@ public class Humano extends Jugador {
 		return mHumano;
 	}
 
+	@Override
+	public void prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
+		// TODO Auto-generated method stub
+		super.prepararDisparo(pCoordenada, pDisparo);
+	}
 }
