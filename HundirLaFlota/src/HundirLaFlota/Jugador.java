@@ -108,6 +108,7 @@ public abstract class Jugador {
 			
 			if(!this.hayBarcoEnZona(pListaTipoBarcos[i], coord, bool) && coordenadasDentro(coord, pListaTipoBarcos[i].getTamano(), bool)) {
 				this.colocarBarco(pListaTipoBarcos[i], coord, bool);
+				support.firePropertyChange("barcoColocado", null, new Barco( pListaTipoBarcos[i], coord, bool));
 			}
 			else {
 				i -= 1;

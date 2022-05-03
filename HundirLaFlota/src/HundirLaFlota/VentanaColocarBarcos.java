@@ -234,6 +234,10 @@ public class VentanaColocarBarcos extends JFrame implements PropertyChangeListen
 		return btnNewButton_1;
 	}
 	
-	public void propertyChange(PropertyChangeEvent evt) {}
+	public void propertyChange(PropertyChangeEvent evt) {
+		if(evt.getPropertyName().equals("barcoColocado")) {
+			pintarCasillas(((Barco) evt.getNewValue()).getTamano(), ((Barco) evt.getNewValue()).getOrientacion(), ((Barco)evt.getNewValue()).getCoordenadaIncial());
+		}
+	}
 	//TODO property change para pintar
 }
