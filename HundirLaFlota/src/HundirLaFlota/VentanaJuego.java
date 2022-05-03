@@ -205,7 +205,6 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		boolean[] listBool = new boolean[2];
 		listBool = (boolean[]) evt.getNewValue();
-		Coordenada prueba = (Coordenada) evt.getOldValue();
 		if(evt.getPropertyName().equals("tableroBarco")) {
 			if (listBool[1]) {
 				FinJuego vFin = new FinJuego();

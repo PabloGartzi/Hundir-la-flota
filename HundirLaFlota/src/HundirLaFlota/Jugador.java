@@ -45,6 +45,9 @@ public abstract class Jugador {
 			}
 		}
 		boolean[] listBool = {acierto, finJuego};
+		
+		support.firePropertyChange("tableroDisparo", pCoordenada, listBool);
+		
 		return listBool;
 	}
 	
@@ -56,7 +59,7 @@ public abstract class Jugador {
 			else {
 				listBool = jugadorOponente.disparo(pCoordenada, pDisparo);
 			}
-			
+		support.firePropertyChange("tableroBarco", pCoordenada, listBool);
 	}
 		
 	public boolean reparar() {
