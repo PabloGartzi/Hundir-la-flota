@@ -192,6 +192,16 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		}
 		
 	jHumano.addObserver(this);	
+	
+	Casilla[][] tableroJugador = jHumano.getTableroBarco().getTabla();
+	
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			if(tableroJugador[i][j].getHayBarco()) {
+				botonesCoordenadaABoton.get(new Coordenada(i,j)).setBackground(Color.yellow);	
+		}
+	}
+		}
 	}
 
 	private void anadirBotones(JCheckBox pBoton, int pX, int pY) {
@@ -217,7 +227,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			else {
 				botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.blue);
 			}
-		} else{
+		} else if(evt.getPropertyName().equals("tableroDisparo")){
 			if (listBool[1]) {
 				FinJuego vFin = new FinJuego();
 				setVisible(false);
@@ -231,5 +241,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			}
 		}
 	}
+	
+	
 
 }

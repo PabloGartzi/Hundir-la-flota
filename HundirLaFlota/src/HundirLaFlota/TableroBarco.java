@@ -48,7 +48,7 @@ public class TableroBarco {
 				break;
 		}
 		
-		if(pBarco.getHundido())
+		if(pBarco.getHundido() && !barcosHundidos.contains(pBarco))
 			barcosHundidos.add(pBarco);
 		
 		if(barcosHundidos.size()==10)

@@ -17,12 +17,14 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.awt.event.ActionEvent;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class VentanaColocarBarcos extends JFrame {
+public class VentanaColocarBarcos extends JFrame implements PropertyChangeListener{
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -40,6 +42,7 @@ public class VentanaColocarBarcos extends JFrame {
 	private Ordenador jOrdenador = Ordenador.getOrdenador();
 	private TipoBarco[] barcosAColocar;
 	private int barcosColocarIndiceIterador;
+	private JButton btnNewButton_1;
 	/**
 	 * Launch the application.
 	 */
@@ -78,7 +81,8 @@ public class VentanaColocarBarcos extends JFrame {
 		contentPane.add(getPanel(), BorderLayout.CENTER);
 		contentPane.add(getPanel_1(), BorderLayout.EAST);
 		contentPane.add(getBtnNewButton(), BorderLayout.SOUTH);
-		
+		contentPane.add(getBtnNewButton_1(), BorderLayout.NORTH);
+		jHumano.addObserver(this);
 		for(int i = 0; i<10; i++) {
 			for(int j=0; j<10; j++) {
 				JCheckBox botonBarco = new JCheckBox();
@@ -202,7 +206,15 @@ public class VentanaColocarBarcos extends JFrame {
 	}
 	
 	private void colocarOrdenador() {
-		jOrdenador.colocarBarcos(barcosAColocar);
+		jOrdenador.colocarBarcosAleatorio(barcosAColocar);
+	}
+	
+	private void colocarHumanoAleatorio() {
+		jHumano.colocarBarcosAleatorio(barcosAColocar);
+		colocarOrdenador();
+		this.setVisible(false);
+		VentanaJuego vJuego = new VentanaJuego();
+		vJuego.setVisible(true);
 	}
 	
 	private boolean coordenadasDentro(Coordenada pCoord, int pTamano, boolean pDireccion) {
@@ -210,4 +222,18 @@ public class VentanaColocarBarcos extends JFrame {
 			return pCoord.getX()+pTamano-1<=9;
 		return pCoord.getY()+pTamano-1<=9;
 	}
+	private JButton getBtnNewButton_1() {
+		if (btnNewButton_1 == null) {
+			btnNewButton_1 = new JButton("Colocar de forma aleatoria");
+			btnNewButton_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					colocarHumanoAleatorio();
+				}
+			});
+		}
+		return btnNewButton_1;
+	}
+	
+	public void propertyChange(PropertyChangeEvent evt) {}
+	//TODO property change para pintar
 }
