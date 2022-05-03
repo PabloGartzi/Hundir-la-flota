@@ -27,41 +27,37 @@ public abstract class Jugador {
 		jugadorOponente = pJugador;
 	}
 	
-	public boolean[] disparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
-		boolean finJuego = false;
-		boolean acierto = false;
+	public RegistroDisparo disparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
+		RegistroDisparo rDisp = null;
 		
 		if(tableroBarco.hayBarco(pCoordenada)) {
 			switch(pDisparo) {
 			case BOMBA:
 				tableroDisparo.actuarCasilla(pCoordenada);
-				finJuego = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.BOMBA);
-				acierto = true;
+				rDisp = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.BOMBA);
 				break;
 			
 			case MISIL:
 				tableroDisparo.actuarCasilla(pCoordenada);
-				finJuego = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.MISIL);
-				acierto = true;
+				rDisp = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.MISIL);
 				break;
 			}
 		}
-		boolean[] listBool = {acierto, finJuego};
 		
-		support.firePropertyChange("tableroDisparo", pCoordenada, listBool);
+		support.firePropertyChange("tableroDisparo", null, rDisp);
 		
-		return listBool;
+		return rDisp;
 	}
 	
 	public void prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
-		boolean[] listBool = new boolean[2];
+		RegistroDisparo rDisp = null;
 			if(pDisparo.equals(TipoDisparo.BOMBA) || pDisparo.equals(TipoDisparo.MISIL)) {
-				listBool = jugadorOponente.disparo(pCoordenada, pDisparo);
+				rDisp = jugadorOponente.disparo(pCoordenada, pDisparo);
 			}
 			else {
-				listBool = jugadorOponente.disparo(pCoordenada, pDisparo);
+				rDisp = jugadorOponente.disparo(pCoordenada, pDisparo);
 			}
-		support.firePropertyChange("tableroBarco", pCoordenada, listBool);
+		support.firePropertyChange("tableroBarco", null, rDisp);
 	}
 		
 	public boolean reparar() {

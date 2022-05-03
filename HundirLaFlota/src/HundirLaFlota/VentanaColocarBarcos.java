@@ -222,6 +222,7 @@ public class VentanaColocarBarcos extends JFrame implements PropertyChangeListen
 			return pCoord.getX()+pTamano-1<=9;
 		return pCoord.getY()+pTamano-1<=9;
 	}
+	
 	private JButton getBtnNewButton_1() {
 		if (btnNewButton_1 == null) {
 			btnNewButton_1 = new JButton("Colocar de forma aleatoria");
@@ -239,5 +240,5 @@ public class VentanaColocarBarcos extends JFrame implements PropertyChangeListen
 			pintarCasillas(((Barco) evt.getNewValue()).getTamano(), ((Barco) evt.getNewValue()).getOrientacion(), ((Barco)evt.getNewValue()).getCoordenadaIncial());
 		}
 	}
-	//TODO property change para pintar
+	
 }

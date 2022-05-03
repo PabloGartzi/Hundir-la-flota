@@ -213,26 +213,30 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		boolean[] listBool = new boolean[2];
-		listBool = (boolean[]) evt.getNewValue();
+		RegistroDisparo rDisp;
+		rDisp = (RegistroDisparo) evt.getNewValue();
 		if(evt.getPropertyName().equals("tableroBarco")) {
-			if (listBool[1]) {
+			if (rDisp.isFinJuego()) {
 				FinJuego vFin = new FinJuego();
 				setVisible(false);
 				vFin.setVisible(true);
-			} else if (listBool[0]) {
+			} else if (rDisp.isTocaBarco()) {
+				if(rDisp.getBarcoAtacado().getHundido()) {
+					pintarCasillasBarcoHundido(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial()C);
+				}else {
 				botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.red);
+				}
 			}
 	
 			else {
 				botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.blue);
 			}
 		} else if(evt.getPropertyName().equals("tableroDisparo")){
-			if (listBool[1]) {
+			if (rDisp.isFinJuego()) {
 				FinJuego vFin = new FinJuego();
 				setVisible(false);
 				vFin.setVisible(true);
-			} else if (listBool[0]) {
+			} else if (rDisp.isTocaBarco()) {
 				botonesCoordenadaABoton.get((Coordenada) evt.getOldValue()).setBackground(Color.red);
 			}
 	
@@ -242,6 +246,36 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		}
 	}
 	
+	private void pintarCasillasBarcoHundidoEnemigo(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada) {
+		if(pDireccion) {
+			for(int i=0; i< pNumeroCasillas; i++) {
+				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX()+i, pPrimeraCoordenada.getY());
+				botonesCoordenadaABoton.get(nCoord).setBackground(Color.DARK_GRAY);
+				
+			}
+		}
+		else {
+			for(int i=0; i< pNumeroCasillas; i++) {
+				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX(), pPrimeraCoordenada.getY()+i);
+				botonesCoordenadaABoton.get(nCoord).setBackground(Color.DARK_GRAY);
+			}
+		}
+	}
 	
-
+	private void pintarCasillasBarcoHundidoPropio(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada) {
+		if(pDireccion) {
+			for(int i=0; i< pNumeroCasillas; i++) {
+				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX()+i, pPrimeraCoordenada.getY());
+				botonesCoordenadaABoton.get(nCoord).setBackground(Color.DARK_GRAY);
+				
+			}
+		}
+		else {
+			for(int i=0; i< pNumeroCasillas; i++) {
+				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX(), pPrimeraCoordenada.getY()+i);
+				botonesCoordenadaABoton.get(nCoord).setBackground(Color.DARK_GRAY);
+			}
+		}
+	}
+	//TODO mirar bien que casillas se están pintando
 }

@@ -33,7 +33,7 @@ public class TableroBarco {
 		return tablero[pCoordenada.getX()][pCoordenada.getY()].getHayBarco();
 	}
 	
-	public boolean tocarBarco(Barco pBarco, Coordenada pCoordenada, TipoDisparo pDisparo) {
+	public RegistroDisparo tocarBarco(Barco pBarco, Coordenada pCoordenada, TipoDisparo pDisparo) {
 		switch(pDisparo) {
 			case BOMBA:
 				int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
@@ -51,9 +51,14 @@ public class TableroBarco {
 		if(pBarco.getHundido() && !barcosHundidos.contains(pBarco))
 			barcosHundidos.add(pBarco);
 		
-		if(barcosHundidos.size()==10)
-			return true;
-		return false;
+		RegistroDisparo rDisp = new RegistroDisparo(pCoordenada, pBarco, true, pDisparo, false)
+		
+		if(barcosHundidos.size()==10) {
+			rDisp.setFinJuego(true);
+			return rDisp;
+			}
+		
+		return rDisp;
 	}
 	
 	public void setBarco(Coordenada pCoordenada, Barco pBarco, boolean pOrientacion) {
