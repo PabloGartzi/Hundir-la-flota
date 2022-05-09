@@ -42,15 +42,16 @@ public abstract class Jugador {
 				rDisp = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.MISIL);
 				break;
 			}
-		}
-		
+		}else
+			rDisp = new RegistroDisparo(pCoordenada, null, false, pDisparo, false);
+			
 		support.firePropertyChange("tableroDisparo", null, rDisp);
 		
 		return rDisp;
 	}
 	
 	public void prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
-		RegistroDisparo rDisp = null;
+		RegistroDisparo rDisp;
 			if(pDisparo.equals(TipoDisparo.BOMBA) || pDisparo.equals(TipoDisparo.MISIL)) {
 				rDisp = jugadorOponente.disparo(pCoordenada, pDisparo);
 			}
@@ -111,6 +112,7 @@ public abstract class Jugador {
 			}
 		}
 		
+		System.out.println(this.getClass().getName());
 		for(int i=0; i<10; i++) {
 			for(int j=0; j<10; j++) {
 				if(this.getTableroBarco().getTabla()[i][j].getHayBarco())

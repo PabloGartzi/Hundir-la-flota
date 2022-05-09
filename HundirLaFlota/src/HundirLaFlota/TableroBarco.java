@@ -46,6 +46,8 @@ public class TableroBarco {
 					pBarco.tocarParte(i);
 				}	
 				break;
+		default:
+			break;
 		}
 		
 		if(pBarco.getHundido() && !barcosHundidos.contains(pBarco))

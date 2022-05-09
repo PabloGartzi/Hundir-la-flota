@@ -31,7 +31,8 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	private final ButtonGroup botonesAccion = new ButtonGroup();
 
 	private HashMap<ButtonModel, Coordenada> botonesModeloACoordenada;
-	private HashMap<Coordenada, JCheckBox> botonesCoordenadaABoton;
+	private HashMap<Coordenada, JCheckBox> botonesCoordenadaABotonPanelIzq;
+	private HashMap<Coordenada, JCheckBox> botonesCoordenadaABotonPanelDch;
 	private HashMap<ButtonModel, JCheckBox> botonesModeloABoton;
 	private Humano jHumano = Humano.getHumano();
 	private Ordenador jOrdenador = Ordenador.getOrdenador();
@@ -57,7 +58,8 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	 */
 	public VentanaJuego() {
 		botonesModeloACoordenada = new HashMap<>();
-		botonesCoordenadaABoton = new HashMap<>();
+		botonesCoordenadaABotonPanelIzq = new HashMap<>();
+		botonesCoordenadaABotonPanelDch = new HashMap<>();
 		botonesModeloABoton = new HashMap<>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1212, 602);
@@ -172,7 +174,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 				panel_4_1.add(botonBarco);
 				
 				botonesTableroBarcos.add(botonBarco);
-				botonesCoordenadaABoton.put(new Coordenada(i, j), botonBarco);
+				botonesCoordenadaABotonPanelIzq.put(new Coordenada(i, j), botonBarco);
 			}
 		}
 
@@ -188,6 +190,8 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 				panel_5.add(botonBarco);
 				
 				botonesTableroDisparo.add(botonBarco);
+				botonesCoordenadaABotonPanelDch.put(new Coordenada(i, j), botonBarco);
+				
 			}
 		}
 		
@@ -198,7 +202,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 10; j++) {
 			if(tableroJugador[i][j].getHayBarco()) {
-				botonesCoordenadaABoton.get(new Coordenada(i,j)).setBackground(Color.yellow);	
+				botonesCoordenadaABotonPanelIzq.get(new Coordenada(i,j)).setBackground(Color.yellow);	
 		}
 	}
 		}
@@ -223,12 +227,11 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			} else if (rDisp.isTocaBarco()) {
 				if(rDisp.getBarcoAtacado().getHundido()) {
 					pintarCasillasBarcoHundidoPropio(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial());
-				}else {
-				botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.red);
-				}
+				}else 
+					botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.red);
+				
 			}
-	
-			else {
+				else {
 				botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.blue);
 			}
 		} else if(evt.getPropertyName().equals("tableroDisparo")){
@@ -239,12 +242,12 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			} else if (rDisp.isTocaBarco()) {
 				if(rDisp.getBarcoAtacado().getHundido()) {
 					pintarCasillasBarcoHundidoEnemigo(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial());
-				}
-				botonesCoordenadaABoton.get((Coordenada) evt.getOldValue()).setBackground(Color.red);
+				}else
+					botonesCoordenadaABotonPanelIzq.get(rDisp.getCoorDisparo()).setBackground(Color.red);
 			}
 	
 			else {
-				botonesCoordenadaABoton.get((Coordenada) evt.getOldValue()).setBackground(Color.blue);
+				botonesCoordenadaABotonPanelIzq.get(rDisp.getCoorDisparo()).setBackground(Color.blue);
 			}
 		}
 	}
@@ -253,14 +256,14 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		if(pDireccion) {
 			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX()+i, pPrimeraCoordenada.getY());
-				botonesCoordenadaABoton.get(nCoord).setBackground(Color.DARK_GRAY);
+				botonesCoordenadaABotonPanelDch.get(nCoord).setBackground(Color.DARK_GRAY);
 				
 			}
 		}
 		else {
 			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX(), pPrimeraCoordenada.getY()+i);
-				botonesCoordenadaABoton.get(nCoord).setBackground(Color.DARK_GRAY);
+				botonesCoordenadaABotonPanelDch.get(nCoord).setBackground(Color.DARK_GRAY);
 			}
 		}
 	}
@@ -269,14 +272,14 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		if(pDireccion) {
 			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX()+i, pPrimeraCoordenada.getY());
-				botonesCoordenadaABoton.get(nCoord).setBackground(Color.DARK_GRAY);
+				botonesCoordenadaABotonPanelIzq.get(nCoord).setBackground(Color.DARK_GRAY);
 				
 			}
 		}
 		else {
 			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX(), pPrimeraCoordenada.getY()+i);
-				botonesCoordenadaABoton.get(nCoord).setBackground(Color.DARK_GRAY);
+				botonesCoordenadaABotonPanelIzq.get(nCoord).setBackground(Color.DARK_GRAY);
 			}
 		}
 	}
