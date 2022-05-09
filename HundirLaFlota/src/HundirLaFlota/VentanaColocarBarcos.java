@@ -87,9 +87,9 @@ public class VentanaColocarBarcos extends JFrame implements PropertyChangeListen
 			for(int j=0; j<10; j++) {
 				JCheckBox botonBarco = new JCheckBox();
 				if(i%2!=0 && j%2!=0 || i%2==0 && j%2==0)
-					botonBarco.setBackground(Color.WHITE);
+					botonBarco.setBackground(Color.GRAY);
 				else
-					botonBarco.setBackground(Color.WHITE);
+					botonBarco.setBackground(Color.LIGHT_GRAY);
 				Coordenada coord = new Coordenada(i,j);
 				eleccionCasilla.add(botonBarco);
 				panel.add(botonBarco);

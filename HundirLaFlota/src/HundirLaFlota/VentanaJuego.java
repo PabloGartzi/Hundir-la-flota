@@ -34,6 +34,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	private HashMap<Coordenada, JCheckBox> botonesCoordenadaABotonPanelIzq;
 	private HashMap<Coordenada, JCheckBox> botonesCoordenadaABotonPanelDch;
 	private HashMap<ButtonModel, JCheckBox> botonesModeloABoton;
+	private HashMap<ButtonModel, TipoDisparo> botonesModeloABotonAccion;
 	private Humano jHumano = Humano.getHumano();
 	private Ordenador jOrdenador = Ordenador.getOrdenador();
 
@@ -61,6 +62,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		botonesCoordenadaABotonPanelIzq = new HashMap<>();
 		botonesCoordenadaABotonPanelDch = new HashMap<>();
 		botonesModeloABoton = new HashMap<>();
+		botonesModeloABotonAccion = new HashMap<>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1212, 602);
 		contentPane = new JPanel();
@@ -114,25 +116,29 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
 		JRadioButton botonBomba = new JRadioButton("Bomba (100)");
 		botonesAccion.add(botonBomba);
+		botonesModeloABotonAccion.put(botonBomba.getModel(), TipoDisparo.BOMBA);
 		panel_10.add(botonBomba);
 
 		JRadioButton botonMisil = new JRadioButton("Misiles (10)");
 		botonesAccion.add(botonMisil);
+		botonesModeloABotonAccion.put(botonMisil.getModel(), TipoDisparo.MISIL);
 		panel_10.add(botonMisil);
 
 		JRadioButton botonRadar = new JRadioButton("Radar");
 		botonesAccion.add(botonRadar);
+		botonesModeloABotonAccion.put(botonRadar.getModel(), TipoDisparo.RADAR);
 		panel_10.add(botonRadar);
 
 		JRadioButton botonEscudo = new JRadioButton("Escudo");
 		botonesAccion.add(botonEscudo);
+		botonesModeloABotonAccion.put(botonEscudo.getModel(), TipoDisparo.ESCUDO);
 		panel_10.add(botonEscudo);
 
 		JButton btnNewButton_4 = new JButton("Acción");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jHumano.prepararDisparo(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
-						TipoDisparo.BOMBA);	
+						botonesModeloABotonAccion.get(botonesAccion.getSelection()));	
 				jOrdenador.disparar();
 			}
 		});
@@ -166,9 +172,9 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			for (int j = 0; j < 10; j++) {
 				JCheckBox botonBarco = new JCheckBox();
 				if (i % 2 != 0 && j % 2 != 0 || i % 2 == 0 && j % 2 == 0)
-					botonBarco.setBackground(Color.WHITE);
+					botonBarco.setBackground(Color.GRAY);
 				else
-					botonBarco.setBackground(Color.WHITE);
+					botonBarco.setBackground(Color.LIGHT_GRAY);
 
 				anadirBotones(botonBarco, i, j);
 				panel_4_1.add(botonBarco);
@@ -182,9 +188,9 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			for (int j = 0; j < 10; j++) {
 				JCheckBox botonBarco = new JCheckBox();
 				if (i % 2 != 0 && j % 2 != 0 || i % 2 == 0 && j % 2 == 0)
-					botonBarco.setBackground(Color.WHITE);
+					botonBarco.setBackground(Color.GRAY);
 				else
-					botonBarco.setBackground(Color.WHITE);
+					botonBarco.setBackground(Color.LIGHT_GRAY);
 
 				anadirBotones(botonBarco, i, j);
 				panel_5.add(botonBarco);
