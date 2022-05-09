@@ -166,7 +166,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			for (int j = 0; j < 10; j++) {
 				JCheckBox botonBarco = new JCheckBox();
 				if (i % 2 != 0 && j % 2 != 0 || i % 2 == 0 && j % 2 == 0)
-					botonBarco.setBackground(Color.BLACK);
+					botonBarco.setBackground(Color.WHITE);
 				else
 					botonBarco.setBackground(Color.WHITE);
 
@@ -182,7 +182,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			for (int j = 0; j < 10; j++) {
 				JCheckBox botonBarco = new JCheckBox();
 				if (i % 2 != 0 && j % 2 != 0 || i % 2 == 0 && j % 2 == 0)
-					botonBarco.setBackground(Color.BLACK);
+					botonBarco.setBackground(Color.WHITE);
 				else
 					botonBarco.setBackground(Color.WHITE);
 
