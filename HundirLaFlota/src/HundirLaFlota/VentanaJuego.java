@@ -256,14 +256,14 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		if(pDireccion) {
 			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX()+i, pPrimeraCoordenada.getY());
-				botonesCoordenadaABotonPanelDch.get(nCoord).setBackground(Color.DARK_GRAY);
+				botonesCoordenadaABotonPanelIzq.get(nCoord).setBackground(Color.DARK_GRAY);
 				
 			}
 		}
 		else {
 			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX(), pPrimeraCoordenada.getY()+i);
-				botonesCoordenadaABotonPanelDch.get(nCoord).setBackground(Color.DARK_GRAY);
+				botonesCoordenadaABotonPanelIzq.get(nCoord).setBackground(Color.DARK_GRAY);
 			}
 		}
 	}
@@ -272,14 +272,14 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		if(pDireccion) {
 			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX()+i, pPrimeraCoordenada.getY());
-				botonesCoordenadaABotonPanelIzq.get(nCoord).setBackground(Color.DARK_GRAY);
+				botonesCoordenadaABotonPanelDch.get(nCoord).setBackground(Color.DARK_GRAY);
 				
 			}
 		}
 		else {
 			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX(), pPrimeraCoordenada.getY()+i);
-				botonesCoordenadaABotonPanelIzq.get(nCoord).setBackground(Color.DARK_GRAY);
+				botonesCoordenadaABotonPanelDch.get(nCoord).setBackground(Color.DARK_GRAY);
 			}
 		}
 	}
