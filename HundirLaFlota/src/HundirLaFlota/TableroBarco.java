@@ -51,7 +51,7 @@ public class TableroBarco {
 		if(pBarco.getHundido() && !barcosHundidos.contains(pBarco))
 			barcosHundidos.add(pBarco);
 		
-		RegistroDisparo rDisp = new RegistroDisparo(pCoordenada, pBarco, true, pDisparo, false)
+		RegistroDisparo rDisp = new RegistroDisparo(pCoordenada, pBarco, true, pDisparo, false);
 		
 		if(barcosHundidos.size()==10) {
 			rDisp.setFinJuego(true);

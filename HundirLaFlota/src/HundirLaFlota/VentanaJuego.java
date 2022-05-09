@@ -222,7 +222,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 				vFin.setVisible(true);
 			} else if (rDisp.isTocaBarco()) {
 				if(rDisp.getBarcoAtacado().getHundido()) {
-					pintarCasillasBarcoHundido(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial()C);
+					pintarCasillasBarcoHundidoPropio(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial());
 				}else {
 				botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.red);
 				}
@@ -237,6 +237,9 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 				setVisible(false);
 				vFin.setVisible(true);
 			} else if (rDisp.isTocaBarco()) {
+				if(rDisp.getBarcoAtacado().getHundido()) {
+					pintarCasillasBarcoHundidoEnemigo(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial());
+				}
 				botonesCoordenadaABoton.get((Coordenada) evt.getOldValue()).setBackground(Color.red);
 			}
 	
