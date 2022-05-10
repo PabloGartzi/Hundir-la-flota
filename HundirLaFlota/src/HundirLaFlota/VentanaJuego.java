@@ -150,7 +150,12 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		JButton btnNewButton = new JButton("New button");
 		panel_3.add(btnNewButton);
 
-		JButton btnNewButton_1 = new JButton("New button");
+		JButton btnNewButton_1 = new JButton("Reparar");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jHumano.reparar(botonesModeloACoordenada.get(botonesTableroBarcos.getSelection()));
+			}
+		});
 		panel_3.add(btnNewButton_1);
 
 		JButton btnNewButton_2 = new JButton("New button");
@@ -224,12 +229,11 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		RegistroDisparo rDisp;
-		rDisp = (RegistroDisparo) evt.getNewValue();
+		
 		if(evt.getPropertyName().equals("tableroBarco")) {
+			rDisp = (RegistroDisparo) evt.getNewValue();
 			if (rDisp.isFinJuego()) {
-				FinJuego vFin = new FinJuego();
-				setVisible(false);
-				vFin.setVisible(true);
+				finalizarJuego(rDisp);
 			} else if (rDisp.isTocaBarco()) {
 				if(rDisp.getBarcoAtacado().getHundido()) {
 					pintarCasillasBarcoHundidoPropio(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial());
@@ -241,10 +245,9 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 				botonesModeloABoton.get(botonesTableroDisparo.getSelection()).setBackground(Color.blue);
 			}
 		} else if(evt.getPropertyName().equals("tableroDisparo")){
+			rDisp = (RegistroDisparo) evt.getNewValue();
 			if (rDisp.isFinJuego()) {
-				FinJuego vFin = new FinJuego();
-				setVisible(false);
-				vFin.setVisible(true);
+				finalizarJuego(rDisp);
 			} else if (rDisp.isTocaBarco()) {
 				if(rDisp.getBarcoAtacado().getHundido()) {
 					pintarCasillasBarcoHundidoEnemigo(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial());
@@ -255,6 +258,8 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			else {
 				botonesCoordenadaABotonPanelIzq.get(rDisp.getCoorDisparo()).setBackground(Color.blue);
 			}
+		} else if(evt.getPropertyName().equals("barcoReparado")) {
+			pintarCasillasBarcoReparado(((Barco) evt.getNewValue()).getTamano(), ((Barco) evt.getNewValue()).getOrientacion(), ((Barco) evt.getNewValue()).getCoordenadaIncial());
 		}
 	}
 	
@@ -288,6 +293,32 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 				botonesCoordenadaABotonPanelDch.get(nCoord).setBackground(Color.DARK_GRAY);
 			}
 		}
+	}
+	
+	private void pintarCasillasBarcoReparado(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada) {
+		if(pDireccion) {
+			for(int i=0; i< pNumeroCasillas; i++) {
+				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX()+i, pPrimeraCoordenada.getY());
+				botonesCoordenadaABotonPanelIzq.get(nCoord).setBackground(Color.GREEN);
+				
+			}
+		}
+		else {
+			for(int i=0; i< pNumeroCasillas; i++) {
+				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX(), pPrimeraCoordenada.getY()+i);
+				botonesCoordenadaABotonPanelIzq.get(nCoord).setBackground(Color.GREEN);
+			}
+		}
+	}
+	
+	private void finalizarJuego(RegistroDisparo rDisp) {
+		FinJuego vFin = new FinJuego();
+		if(rDisp.getGanador())
+			vFin.setGanador("Has ganado");
+		else
+			vFin.setGanador("Has perdido");
+		setVisible(false);
+		vFin.setVisible(true);
 	}
 	//TODO mirar bien que casillas se están pintando
 }

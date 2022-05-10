@@ -59,5 +59,9 @@ public class FinJuego extends JDialog {
 			}
 		}
 	}
+	
+	public void setGanador(String pGanador) {
+		txtJuegoterminado.setText(pGanador);
+	}
 
 }

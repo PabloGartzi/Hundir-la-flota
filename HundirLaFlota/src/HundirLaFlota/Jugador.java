@@ -43,7 +43,7 @@ public abstract class Jugador {
 				break;
 			}
 		}else
-			rDisp = new RegistroDisparo(pCoordenada, null, false, pDisparo, false);
+			rDisp = new RegistroDisparo(pCoordenada, null, false, pDisparo, false, true);
 			
 		support.firePropertyChange("tableroDisparo", null, rDisp);
 		
@@ -61,8 +61,11 @@ public abstract class Jugador {
 		support.firePropertyChange("tableroBarco", null, rDisp);
 	}
 		
-	public boolean reparar() {
-		return false;
+	public void reparar(Coordenada pCoordenada) {
+		if(this.tableroBarco.hayBarco(pCoordenada) && !this.tableroBarco.getCasilla(pCoordenada).getBarco().getHundido()) {
+			this.tableroBarco.getCasilla(pCoordenada).getBarco().reparar();
+			support.firePropertyChange("barcoReparado", null, this.tableroBarco.getCasilla(pCoordenada).getBarco());
+		}
 	}
 	
 	public void colocarBarco(TipoBarco pTipoBarco, Coordenada pCoordenada, boolean pDireccion) {

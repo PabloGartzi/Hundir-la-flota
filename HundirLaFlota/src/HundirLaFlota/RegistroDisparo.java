@@ -6,13 +6,23 @@ public class RegistroDisparo {
 	private boolean tocaBarco;
 	private TipoDisparo tipoDeDisparo;
 	private boolean finJuego;
+	private boolean ganador;
 	
-	public RegistroDisparo(Coordenada pCoordenada, Barco pBarco, boolean pTocaBarco, TipoDisparo pTipoDeDisparo, boolean pFinJuego) {
+	public RegistroDisparo(Coordenada pCoordenada, Barco pBarco, boolean pTocaBarco, TipoDisparo pTipoDeDisparo, boolean pFinJuego, boolean pGanador) {
 		setCoorDisparo(pCoordenada);
 		setBarcoAtacado(pBarco);
 		setTocaBarco(pTocaBarco);
 		setTipoDeDisparo(pTipoDeDisparo);
 		setFinJuego(pFinJuego);
+		setGanador(pGanador);
+	}
+
+	public void setGanador(boolean pGanador) {
+		this.ganador = pGanador;
+	}
+	
+	public boolean getGanador() {
+		return ganador;
 	}
 
 	public Coordenada getCoorDisparo() {
