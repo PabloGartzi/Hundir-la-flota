@@ -18,6 +18,7 @@ public abstract class Jugador {
 		tableroBarco = new TableroBarco();	
 		support = new PropertyChangeSupport(this);
 		dinero = 1000;
+		//TODO usar dinero
 
 	}
 	

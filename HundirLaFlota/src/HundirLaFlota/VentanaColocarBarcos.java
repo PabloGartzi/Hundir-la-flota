@@ -22,10 +22,13 @@ import java.beans.PropertyChangeListener;
 import java.awt.event.ActionEvent;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class VentanaColocarBarcos extends JFrame implements PropertyChangeListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JPanel panel_1;

@@ -42,21 +42,21 @@ public class TableroBarco {
 				if(hayBarco(pCoordenada)) 
 					rDisp = disparoBomba(tablero[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada);
 				else
-					rDisp = generarRegistro(pCoordenada, null, false, pDisparo);
+					rDisp = generarRegistroDisparo(pCoordenada, null, false, pDisparo);
 				break;
 				
 			case MISIL:
 				if(hayBarco(pCoordenada)) 
 					rDisp = disparoMisil(tablero[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada);
 				else
-					rDisp = generarRegistro(pCoordenada, null, false, pDisparo);
+					rDisp = generarRegistroDisparo(pCoordenada, null, false, pDisparo);
 				break;
 				
 			case ESCUDO:
 				if(hayBarco(pCoordenada))
 					rDisp = accionEscudo(tablero[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada);
 				else
-					rDisp = generarRegistro(pCoordenada, null, false, pDisparo);
+					rDisp = generarRegistroDisparoEscudo(pCoordenada, null);
 				break;
 			case RADAR:
 					rDisp = accionRadar(this);
@@ -100,7 +100,7 @@ public class TableroBarco {
 	}
 	
 	private RegistroDisparo accionRadar(TableroBarco pTablero) {
-		radar.buscarBarco(pTablero);
+		radar.usarRadar(pTablero);
 		return generarRegistroDisparoRadar(this.radar);
 	}
 	

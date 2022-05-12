@@ -7,7 +7,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JSplitPane;
 import java.awt.GridLayout;
 import java.util.HashMap;
 
@@ -24,6 +23,10 @@ import java.awt.event.ActionEvent;
 
 public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final ButtonGroup botonesTableroDisparo = new ButtonGroup();
 	private final ButtonGroup botonesTableroBarcos = new ButtonGroup();
@@ -223,7 +226,6 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		Coordenada coord = new Coordenada(pX, pY);
 		botonesModeloACoordenada.put(pBoton.getModel(), coord);
 		botonesModeloABoton.put(pBoton.getModel(), pBoton);
-		
 	}
 
 	@Override
@@ -275,11 +277,14 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	}
 	
 	private void escudoUsado(RegistroDisparo rDisp) {
-		
+		if(rDisp.getBarcoAtacado() != null)
+			pintarCasillas(1, true, rDisp.getCoorDisparo(), botonesCoordenadaABotonPanelIzq, Color.ORANGE);
 	}
 	
 	private void radarUsado(RegistroDisparo rDisp) {
-		
+		Radar radar = rDisp.getRadar();
+		Barco barco = radar.getBarcoDetectado();
+		pintarCasillas(barco.getTamano(), barco.getOrientacion(), barco.getCoordenadaIncial(), botonesCoordenadaABotonPanelDch, Color.MAGENTA);
 	}
 	
 	private void pintarCasillas(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada, HashMap<Coordenada, JCheckBox> pMapaBotones, Color pColor) {
