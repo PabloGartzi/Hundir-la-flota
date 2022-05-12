@@ -7,7 +7,6 @@ public class RegistroDisparo {
 	private TipoDisparo tipoDeDisparo;
 	private boolean finJuego;
 	private boolean ganador;
-	private boolean disparoConMunicion;
 	private boolean hayEscudo;
 	private boolean esEscudo;
 	private Radar radar;
