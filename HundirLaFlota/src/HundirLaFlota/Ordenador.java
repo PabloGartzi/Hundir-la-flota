@@ -21,6 +21,11 @@ public class Ordenador extends Jugador {
 			this.reparar(new Coordenada(ran.nextInt(10), ran.nextInt(10)));
 		}
 		int tDis = ran.nextInt(2);
+		
+		while(this.listaArmas[tDis] == 0) {
+			tDis = ran.nextInt(2);
+		}
+		
 		switch (tDis) {
 			case 0:
 				this.prepararDisparo(new Coordenada(ran.nextInt(10), ran.nextInt(10)), TipoDisparo.BOMBA);

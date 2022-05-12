@@ -7,7 +7,7 @@ import java.util.Random;
 public abstract class Jugador {
 	
 	private int dinero;
-	private Integer[] listaArmas = {1000, 5, 5, 1};
+	protected Integer[] listaArmas = {1000, 5, 5, 1};
 	private TableroDisparo tableroDisparo;
 	private TableroBarco tableroBarco;
 	private Jugador jugadorOponente;
@@ -16,7 +16,6 @@ public abstract class Jugador {
 	private PropertyChangeSupport support;
 	
 	public Jugador() {
-		listaArmas = new Integer[4];
 		tableroDisparo = new TableroDisparo();
 		tableroBarco = new TableroBarco();	
 		support = new PropertyChangeSupport(this);
@@ -32,29 +31,33 @@ public abstract class Jugador {
 		RegistroDisparo rDisp = null;
 		
 		if(tableroBarco.hayBarco(pCoordenada)) {
-				if(listaArmas[pDisparo.getOrden()] >= 1) {
-					tableroDisparo.actuarCasilla(pCoordenada);
-					rDisp = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, pDisparo);
-					listaArmas[pDisparo.getOrden()] -= 1;
-				}
-		}else
-			rDisp = new RegistroDisparo(pCoordenada, null, false, pDisparo, false, true);
-			
-		support.firePropertyChange("tableroDisparo", null, rDisp);
+			tableroDisparo.actuarCasilla(pCoordenada);
+			rDisp = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, pDisparo);
+		}else 
+			rDisp = new RegistroDisparo(pCoordenada, null, false, pDisparo, false, true, true);
 		
+		support.firePropertyChange("tableroDisparo", null, rDisp);
+		this.listaArmas[pDisparo.getOrden()] -= 1;
+			
 		return rDisp;
 	}
 	
 	public void prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
 		RegistroDisparo rDisp;
+		if(this.listaArmas[pDisparo.getOrden()] >= 1) {
 			if(pDisparo.equals(TipoDisparo.BOMBA) || pDisparo.equals(TipoDisparo.MISIL)) {
 				rDisp = jugadorOponente.disparo(pCoordenada, pDisparo);
 			}
 			else {
 				rDisp = jugadorOponente.disparo(pCoordenada, pDisparo);
 			}
-		support.firePropertyChange("tableroBarco", null, rDisp);
+			support.firePropertyChange("tableroBarco", null, rDisp);
+		}
+		else {
+			support.firePropertyChange("noQuedaMunicion", null, null);	
+		}
 	}
+
 		
 	public void reparar(Coordenada pCoordenada) {
 		if(this.tableroBarco.hayBarco(pCoordenada) && !this.tableroBarco.getCasilla(pCoordenada).getBarco().getHundido()) {

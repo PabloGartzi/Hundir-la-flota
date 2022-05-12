@@ -7,14 +7,16 @@ public class RegistroDisparo {
 	private TipoDisparo tipoDeDisparo;
 	private boolean finJuego;
 	private boolean ganador;
+	private boolean disparoConMunicion;
 	
-	public RegistroDisparo(Coordenada pCoordenada, Barco pBarco, boolean pTocaBarco, TipoDisparo pTipoDeDisparo, boolean pFinJuego, boolean pGanador) {
+	public RegistroDisparo(Coordenada pCoordenada, Barco pBarco, boolean pTocaBarco, TipoDisparo pTipoDeDisparo, boolean pFinJuego, boolean pGanador, boolean pDisparoConMunicion) {
 		setCoorDisparo(pCoordenada);
 		setBarcoAtacado(pBarco);
 		setTocaBarco(pTocaBarco);
 		setTipoDeDisparo(pTipoDeDisparo);
 		setFinJuego(pFinJuego);
 		setGanador(pGanador);
+		setDisparoConMunicion(pDisparoConMunicion);
 	}
 
 	public void setGanador(boolean pGanador) {
@@ -65,6 +67,12 @@ public class RegistroDisparo {
 		this.finJuego = finJuego;
 	}
 	
-	
+	public boolean isDisparoConMunicion() {
+		return disparoConMunicion;
+	}
+
+	public void setDisparoConMunicion(boolean pDisparoConMunicion) {
+		this.disparoConMunicion = pDisparoConMunicion;
+	}
 
 }

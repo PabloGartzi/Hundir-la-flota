@@ -94,7 +94,7 @@ public class TableroBarco {
 	//Creación del Resgitro de Disparo
 	
 	private RegistroDisparo generarRegistro(Coordenada pCoordenada, Barco pBarco, boolean pBarcoTocado, TipoDisparo pDisparo) {
-		RegistroDisparo rDisp = new RegistroDisparo(pCoordenada, pBarco, true, pDisparo, false, true);
+		RegistroDisparo rDisp = new RegistroDisparo(pCoordenada, pBarco, true, pDisparo, false, true, true);
 		
 		if(barcosHundidos.size()==10) {
 			rDisp.setFinJuego(true);
