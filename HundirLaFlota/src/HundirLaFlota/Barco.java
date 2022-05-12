@@ -65,4 +65,12 @@ public class Barco {
 				setHundido();
 			}
 		}
+
+	public int getTurnosEscudo() {
+		return turnosEscudo;
+	}
+
+	public void setTurnosEscudo(int turnosEscudo) {
+		this.turnosEscudo = turnosEscudo;
+	}
 	}

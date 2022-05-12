@@ -7,7 +7,7 @@ import java.util.Random;
 public abstract class Jugador {
 	
 	private int dinero;
-	private Integer[] listaArmas;
+	private Integer[] listaArmas = {1000, 5, 5, 1};
 	private TableroDisparo tableroDisparo;
 	private TableroBarco tableroBarco;
 	private Jugador jugadorOponente;
@@ -20,7 +20,8 @@ public abstract class Jugador {
 		tableroDisparo = new TableroDisparo();
 		tableroBarco = new TableroBarco();	
 		support = new PropertyChangeSupport(this);
-		
+		dinero = 1000;
+
 	}
 	
 	public void setOponente(Jugador pJugador) {
@@ -31,17 +32,11 @@ public abstract class Jugador {
 		RegistroDisparo rDisp = null;
 		
 		if(tableroBarco.hayBarco(pCoordenada)) {
-			switch(pDisparo) {
-			case BOMBA:
-				tableroDisparo.actuarCasilla(pCoordenada);
-				rDisp = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.BOMBA);
-				break;
-			
-			case MISIL:
-				tableroDisparo.actuarCasilla(pCoordenada);
-				rDisp = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, TipoDisparo.MISIL);
-				break;
-			}
+				if(listaArmas[pDisparo.getOrden()] >= 1) {
+					tableroDisparo.actuarCasilla(pCoordenada);
+					rDisp = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, pDisparo);
+					listaArmas[pDisparo.getOrden()] -= 1;
+				}
 		}else
 			rDisp = new RegistroDisparo(pCoordenada, null, false, pDisparo, false, true);
 			

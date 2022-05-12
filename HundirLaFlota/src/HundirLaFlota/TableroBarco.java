@@ -36,23 +36,64 @@ public class TableroBarco {
 	public RegistroDisparo tocarBarco(Barco pBarco, Coordenada pCoordenada, TipoDisparo pDisparo) {
 		switch(pDisparo) {
 			case BOMBA:
-				int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
-				pBarco.tocarParte(posicion);
+				disparoBomba(pBarco, pCoordenada);
 				break;
 				
 			case MISIL:
-				pBarco.setHundido();
-				for(int i=0; i<pBarco.getTamano(); i++) {
-					pBarco.tocarParte(i);
-				}	
+				disparoMisil(pBarco, pCoordenada);
 				break;
-		default:
-			break;
+				
+			case ESCUDO:
+				accionEscudo(pBarco);
+				break;
+				
+			case RADAR:
+				accionRadar(pCoordenada);
+				break;
 		}
 		
 		if(pBarco.getHundido() && !barcosHundidos.contains(pBarco))
 			barcosHundidos.add(pBarco);
 		
+		return generarRegistro(pCoordenada, pBarco, true, pDisparo);
+	}
+	
+	
+	//Disparos y acciones 
+	
+	private void disparoBomba(Barco pBarco, Coordenada pCoordenada) {
+		if(pBarco.getTurnosEscudo() == 0) {
+		int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
+		pBarco.tocarParte(posicion);
+		}
+		else {
+			pBarco.setTurnosEscudo(pBarco.getTurnosEscudo()-1);
+		}
+	}
+	
+	private void disparoMisil(Barco pBarco, Coordenada pCoordenada) {
+		if(pBarco.getTurnosEscudo() == 0) {
+			pBarco.setHundido();
+			for(int i=0; i<pBarco.getTamano(); i++) {
+				pBarco.tocarParte(i);
+			}	
+		}
+		else {
+			pBarco.setTurnosEscudo(pBarco.getTurnosEscudo()-1);
+		}
+	}
+	
+	private void accionEscudo(Barco pBarco) {
+		pBarco.setTurnosEscudo(1);
+	}
+	
+	private void accionRadar(Coordenada pCoordenada) {
+		//TODO		
+	}
+	
+	//Creación del Resgitro de Disparo
+	
+	private RegistroDisparo generarRegistro(Coordenada pCoordenada, Barco pBarco, boolean pBarcoTocado, TipoDisparo pDisparo) {
 		RegistroDisparo rDisp = new RegistroDisparo(pCoordenada, pBarco, true, pDisparo, false, true);
 		
 		if(barcosHundidos.size()==10) {
@@ -61,6 +102,7 @@ public class TableroBarco {
 				rDisp.setGanador(false);
 			return rDisp;
 			}
+		
 		return rDisp;
 	}
 	
