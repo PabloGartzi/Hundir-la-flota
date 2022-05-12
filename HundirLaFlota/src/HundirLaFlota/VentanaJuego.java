@@ -137,9 +137,9 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		JButton btnNewButton_4 = new JButton("Acción");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jHumano.prepararDisparo(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
+				jHumano.prepararAccion(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
 						botonesModeloABotonAccion.get(botonesAccion.getSelection()));	
-				jOrdenador.disparar();
+				jOrdenador.actuar();
 			}
 		});
 		panel_10.add(btnNewButton_4);
@@ -228,15 +228,12 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		RegistroDisparo rDisp;
 		
 		if(evt.getPropertyName().equals("tableroBarco")) {
-			rDisp = (RegistroDisparo) evt.getNewValue();
-			cambioTablero(rDisp, botonesCoordenadaABotonPanelDch);
+			cambioTablero((RegistroDisparo) evt.getNewValue(), botonesCoordenadaABotonPanelDch);
 		} 
 		else if(evt.getPropertyName().equals("tableroDisparo")){
-			rDisp = (RegistroDisparo) evt.getNewValue();
-			cambioTablero(rDisp, botonesCoordenadaABotonPanelIzq);
+			cambioTablero((RegistroDisparo) evt.getNewValue(), botonesCoordenadaABotonPanelIzq);
 		} 
 		else if(evt.getPropertyName().equals("barcoReparado")) {
 			cambioBarcoReparado(evt);
@@ -244,6 +241,13 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		else if(evt.getPropertyName().equals("noQuedaMunicion")) {
 			avisoMunicion();
 		}
+		else if(evt.getPropertyName().equals("escudo")) {
+			escudoUsado((RegistroDisparo) evt.getNewValue());
+		}
+		else if(evt.getPropertyName().equals("radar")) {
+			radarUsado((RegistroDisparo) evt.getNewValue());
+		}
+		
 	}	
 	
 	private void cambioTablero(RegistroDisparo rDisp, HashMap<Coordenada, JCheckBox> pMapaBotones) {
@@ -268,6 +272,14 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	private void avisoMunicion() {
 		NoMunicion vNoMunicion = new NoMunicion();
 		vNoMunicion.setVisible(true);
+	}
+	
+	private void escudoUsado(RegistroDisparo rDisp) {
+		
+	}
+	
+	private void radarUsado(RegistroDisparo rDisp) {
+		
 	}
 	
 	private void pintarCasillas(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada, HashMap<Coordenada, JCheckBox> pMapaBotones, Color pColor) {

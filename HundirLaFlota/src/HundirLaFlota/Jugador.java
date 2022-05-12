@@ -8,7 +8,6 @@ public abstract class Jugador {
 	
 	private int dinero;
 	protected Integer[] listaArmas = {1000, 5, 5, 1};
-	private TableroDisparo tableroDisparo;
 	private TableroBarco tableroBarco;
 	private Jugador jugadorOponente;
 	private Random ran = new Random();
@@ -16,7 +15,6 @@ public abstract class Jugador {
 	private PropertyChangeSupport support;
 	
 	public Jugador() {
-		tableroDisparo = new TableroDisparo();
 		tableroBarco = new TableroBarco();	
 		support = new PropertyChangeSupport(this);
 		dinero = 1000;
@@ -27,29 +25,34 @@ public abstract class Jugador {
 		jugadorOponente = pJugador;
 	}
 	
-	public RegistroDisparo disparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
+	public RegistroDisparo accion(Coordenada pCoordenada, TipoDisparo pDisparo) {
 		RegistroDisparo rDisp = null;
 		
-		if(tableroBarco.hayBarco(pCoordenada)) {
-			tableroDisparo.actuarCasilla(pCoordenada);
-			rDisp = tableroBarco.tocarBarco(tableroBarco.getTabla()[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada, pDisparo);
-		}else 
-			rDisp = new RegistroDisparo(pCoordenada, null, false, pDisparo, false, true, true);
+		rDisp = tableroBarco.accion(pCoordenada, pDisparo);
+		switch (pDisparo) {
+			case BOMBA:
+			case MISIL:
+				support.firePropertyChange("tableroDisparo", null, rDisp);
+				break;
+			case ESCUDO:
+				support.firePropertyChange("escudo", null, rDisp);
+				break;		
+			case RADAR:
+				support.firePropertyChange("radar", null, rDisp);
+				break;			
+		}
 		
-		support.firePropertyChange("tableroDisparo", null, rDisp);
-		this.listaArmas[pDisparo.getOrden()] -= 1;
-			
 		return rDisp;
 	}
 	
-	public void prepararDisparo(Coordenada pCoordenada, TipoDisparo pDisparo) {
+	public void prepararAccion(Coordenada pCoordenada, TipoDisparo pDisparo) {
 		RegistroDisparo rDisp;
 		if(this.listaArmas[pDisparo.getOrden()] >= 1) {
 			if(pDisparo.equals(TipoDisparo.BOMBA) || pDisparo.equals(TipoDisparo.MISIL)) {
-				rDisp = jugadorOponente.disparo(pCoordenada, pDisparo);
+				rDisp = jugadorOponente.accion(pCoordenada, pDisparo);
 			}
 			else {
-				rDisp = jugadorOponente.disparo(pCoordenada, pDisparo);
+				rDisp = this.accion(pCoordenada, pDisparo);
 			}
 			support.firePropertyChange("tableroBarco", null, rDisp);
 		}
@@ -78,10 +81,6 @@ public abstract class Jugador {
 				tableroBarco.setBarco(new Coordenada(pCoordenada.getX(), pCoordenada.getY()+i), barcoColocando, pDireccion);
 			}
 		}
-	}
-	
-	public TableroDisparo getTableroDisparo() {
-		return tableroDisparo;
 	}
 	
 	public TableroBarco getTableroBarco() {

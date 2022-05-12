@@ -15,7 +15,7 @@ public class Ordenador extends Jugador {
 		return mOrdenador;
 	}
 
-	public void disparar() {
+	public void actuar() {
 		boolean compraOReparar = ran.nextBoolean();
 		if(compraOReparar) {
 			this.reparar(new Coordenada(ran.nextInt(10), ran.nextInt(10)));
@@ -28,16 +28,16 @@ public class Ordenador extends Jugador {
 		
 		switch (tDis) {
 			case 0:
-				this.prepararDisparo(new Coordenada(ran.nextInt(10), ran.nextInt(10)), TipoDisparo.BOMBA);
+				this.prepararAccion(new Coordenada(ran.nextInt(10), ran.nextInt(10)), TipoDisparo.BOMBA);
 				break;
 			case 1:
-				this.prepararDisparo(new Coordenada(ran.nextInt(10), ran.nextInt(10)), TipoDisparo.MISIL);
+				this.prepararAccion(new Coordenada(ran.nextInt(10), ran.nextInt(10)), TipoDisparo.MISIL);
 				break;
 			case 2:
-				this.prepararDisparo(new Coordenada(ran.nextInt(10), ran.nextInt(10)), TipoDisparo.ESCUDO);
+				this.prepararAccion(new Coordenada(ran.nextInt(10), ran.nextInt(10)), TipoDisparo.ESCUDO);
 				break;
 			case 3:
-				this.prepararDisparo(new Coordenada(ran.nextInt(10), ran.nextInt(10)), TipoDisparo.RADAR);
+				this.prepararAccion(new Coordenada(ran.nextInt(10), ran.nextInt(10)), TipoDisparo.RADAR);
 				break;
 		}
 

@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 public class TableroBarco {
 	private Casilla[][] tablero = new Casilla[10][10];
 	private ArrayList<Barco> barcosHundidos = new ArrayList<>();
+	private Radar radar = new Radar();
 	
 	public TableroBarco() {
 		for(int i=0; i<10; i++) {
@@ -33,35 +34,41 @@ public class TableroBarco {
 		return tablero[pCoordenada.getX()][pCoordenada.getY()].getHayBarco();
 	}
 	
-	public RegistroDisparo tocarBarco(Barco pBarco, Coordenada pCoordenada, TipoDisparo pDisparo) {
+	public RegistroDisparo accion(Coordenada pCoordenada, TipoDisparo pDisparo) {
+		RegistroDisparo rDisp = null;
+		
 		switch(pDisparo) {
 			case BOMBA:
-				disparoBomba(pBarco, pCoordenada);
+				if(hayBarco(pCoordenada)) 
+					rDisp = disparoBomba(tablero[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada);
+				else
+					rDisp = generarRegistro(pCoordenada, null, false, pDisparo);
 				break;
 				
 			case MISIL:
-				disparoMisil(pBarco, pCoordenada);
+				if(hayBarco(pCoordenada)) 
+					rDisp = disparoMisil(tablero[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada);
+				else
+					rDisp = generarRegistro(pCoordenada, null, false, pDisparo);
 				break;
 				
 			case ESCUDO:
-				accionEscudo(pBarco);
+				if(hayBarco(pCoordenada))
+					rDisp = accionEscudo(tablero[pCoordenada.getX()][pCoordenada.getY()].getBarco(), pCoordenada);
+				else
+					rDisp = generarRegistro(pCoordenada, null, false, pDisparo);
 				break;
-				
 			case RADAR:
-				accionRadar(pCoordenada);
+					rDisp = accionRadar(this);
 				break;
 		}
-		
-		if(pBarco.getHundido() && !barcosHundidos.contains(pBarco))
-			barcosHundidos.add(pBarco);
-		
-		return generarRegistro(pCoordenada, pBarco, true, pDisparo);
+							
+		return rDisp;
 	}
-	
 	
 	//Disparos y acciones 
 	
-	private void disparoBomba(Barco pBarco, Coordenada pCoordenada) {
+	private RegistroDisparo disparoBomba(Barco pBarco, Coordenada pCoordenada) {
 		if(pBarco.getTurnosEscudo() == 0) {
 		int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
 		pBarco.tocarParte(posicion);
@@ -69,9 +76,11 @@ public class TableroBarco {
 		else {
 			pBarco.setTurnosEscudo(pBarco.getTurnosEscudo()-1);
 		}
+		
+		return generarRegistroDisparo(pCoordenada, pBarco, false, null);
 	}
 	
-	private void disparoMisil(Barco pBarco, Coordenada pCoordenada) {
+	private RegistroDisparo disparoMisil(Barco pBarco, Coordenada pCoordenada) {
 		if(pBarco.getTurnosEscudo() == 0) {
 			pBarco.setHundido();
 			for(int i=0; i<pBarco.getTamano(); i++) {
@@ -81,19 +90,23 @@ public class TableroBarco {
 		else {
 			pBarco.setTurnosEscudo(pBarco.getTurnosEscudo()-1);
 		}
+		
+		return generarRegistroDisparo(pCoordenada, pBarco, false, null);
 	}
 	
-	private void accionEscudo(Barco pBarco) {
+	private RegistroDisparo accionEscudo(Barco pBarco, Coordenada pCoordenada) {
 		pBarco.setTurnosEscudo(1);
+		return generarRegistroDisparoEscudo(pCoordenada, pBarco);
 	}
 	
-	private void accionRadar(Coordenada pCoordenada) {
-		//TODO		
+	private RegistroDisparo accionRadar(TableroBarco pTablero) {
+		radar.buscarBarco(pTablero);
+		return generarRegistroDisparoRadar(this.radar);
 	}
 	
 	//Creación del Resgitro de Disparo
 	
-	private RegistroDisparo generarRegistro(Coordenada pCoordenada, Barco pBarco, boolean pBarcoTocado, TipoDisparo pDisparo) {
+	private RegistroDisparo generarRegistroDisparo(Coordenada pCoordenada, Barco pBarco, boolean pBarcoTocado, TipoDisparo pDisparo) {
 		RegistroDisparo rDisp = new RegistroDisparo(pCoordenada, pBarco, true, pDisparo, false, true, true);
 		
 		if(barcosHundidos.size()==10) {
@@ -102,8 +115,15 @@ public class TableroBarco {
 				rDisp.setGanador(false);
 			return rDisp;
 			}
-		
 		return rDisp;
+	}
+	
+	private RegistroDisparo generarRegistroDisparoEscudo(Coordenada pCoordenada, Barco pBarco) {
+		return new RegistroDisparo(pCoordenada, pBarco);
+	}
+	
+	private RegistroDisparo generarRegistroDisparoRadar(Radar pRadar) {
+		return new RegistroDisparo(this.radar);
 	}
 	
 	public void setBarco(Coordenada pCoordenada, Barco pBarco, boolean pOrientacion) {
@@ -123,7 +143,7 @@ public class TableroBarco {
 		}		
 	}
 	
-	private Stream<Coordenada> getStreamCoordenadas (Coordenada pCoordenadaPrimera, Coordenada pCoordenadaUltima) {
+	public Stream<Coordenada> getStreamCoordenadas (Coordenada pCoordenadaPrimera, Coordenada pCoordenadaUltima) {
 		return IntStream.rangeClosed(Math.max(0, pCoordenadaPrimera.getX()-1), Math.min(9, pCoordenadaUltima.getX()+1))
 				.mapToObj(x -> IntStream.rangeClosed(Math.max(0, pCoordenadaPrimera.getY()-1), Math.min(9, pCoordenadaUltima.getY()+1))
 						.mapToObj(y -> new Coordenada(x, y)))
