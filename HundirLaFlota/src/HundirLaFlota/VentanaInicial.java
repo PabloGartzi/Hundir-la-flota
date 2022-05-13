@@ -18,6 +18,10 @@ import java.awt.event.ActionEvent;
 
 public class VentanaInicial extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panel;
 	private JTextField txtHundirLaFlota;
