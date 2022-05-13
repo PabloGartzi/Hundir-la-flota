@@ -49,11 +49,11 @@ public abstract class Jugador {
 	public void prepararAccion(Coordenada pCoordenada, TipoDisparo pDisparo) {
 		RegistroDisparo rDisp;
 		if(this.listaArmas[pDisparo.getOrden()] >= 1) {
-			if(pDisparo.equals(TipoDisparo.BOMBA) || pDisparo.equals(TipoDisparo.MISIL)) {
-				rDisp = jugadorOponente.accion(pCoordenada, pDisparo);
+			if(pDisparo.equals(TipoDisparo.ESCUDO)) {
+				rDisp = this.accion(pCoordenada, pDisparo);
 			}
 			else {
-				rDisp = this.accion(pCoordenada, pDisparo);
+				rDisp = jugadorOponente.accion(pCoordenada, pDisparo);
 			}
 			support.firePropertyChange("tableroBarco", null, rDisp);
 		}

@@ -77,7 +77,7 @@ public class TableroBarco {
 			pBarco.setTurnosEscudo(pBarco.getTurnosEscudo()-1);
 		}
 		
-		return generarRegistroDisparo(pCoordenada, pBarco, false, null);
+		return generarRegistroDisparo(pCoordenada, pBarco, true, null);
 	}
 	
 	private RegistroDisparo disparoMisil(Barco pBarco, Coordenada pCoordenada) {
@@ -91,7 +91,7 @@ public class TableroBarco {
 			pBarco.setTurnosEscudo(pBarco.getTurnosEscudo()-1);
 		}
 		
-		return generarRegistroDisparo(pCoordenada, pBarco, false, null);
+		return generarRegistroDisparo(pCoordenada, pBarco, true, null);
 	}
 	
 	private RegistroDisparo accionEscudo(Barco pBarco, Coordenada pCoordenada) {
@@ -107,7 +107,7 @@ public class TableroBarco {
 	//Creación del Resgitro de Disparo
 	
 	private RegistroDisparo generarRegistroDisparo(Coordenada pCoordenada, Barco pBarco, boolean pBarcoTocado, TipoDisparo pDisparo) {
-		RegistroDisparo rDisp = new RegistroDisparo(pCoordenada, pBarco, true, pDisparo, false, true, true);
+		RegistroDisparo rDisp = new RegistroDisparo(pCoordenada, pBarco, pBarcoTocado, pDisparo, false, true, true);
 		
 		if(barcosHundidos.size()==10) {
 			rDisp.setFinJuego(true);
