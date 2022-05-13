@@ -25,11 +25,11 @@ public class Radar {
 	}
 	
 	public Barco buscarBarco(TableroBarco pTablero) {
-		Coordenada[] listaCoordenadas;
+		Object[] listaCoordenadas;
 		Coordenada primera = new Coordenada(coordenada.getX()-4, coordenada.getY()-4);
 		Coordenada ultima = new Coordenada(coordenada.getX()+4, coordenada.getY()+4);
-		listaCoordenadas = (Coordenada[]) pTablero.getStreamCoordenadas(primera, ultima).filter(c -> pTablero.hayBarco(c)).toArray();
-		return pTablero.getCasilla(listaCoordenadas[0]).getBarco();
+		listaCoordenadas = pTablero.getStreamCoordenadas(primera, ultima).filter(c -> pTablero.hayBarco(c)).toArray();
+		return pTablero.getCasilla((Coordenada) listaCoordenadas[0]).getBarco();
 	}
 
 	public int getConsultasPosibles() {
