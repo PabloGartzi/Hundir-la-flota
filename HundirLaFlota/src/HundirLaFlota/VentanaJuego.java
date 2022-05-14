@@ -140,8 +140,12 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		JButton btnNewButton_4 = new JButton("Acción");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jHumano.prepararAccion(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
-						botonesModeloABotonAccion.get(botonesAccion.getSelection()));	
+				if(botonesModeloABotonAccion.get(botonesAccion.getSelection()).equals(TipoDisparo.ESCUDO))
+					jHumano.prepararAccion(botonesModeloACoordenada.get(botonesTableroBarcos.getSelection()),
+							botonesModeloABotonAccion.get(botonesAccion.getSelection()));	
+				else
+					jHumano.prepararAccion(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
+							botonesModeloABotonAccion.get(botonesAccion.getSelection()));	
 				jOrdenador.actuar();
 			}
 		});
@@ -258,6 +262,8 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		} else if (rDisp.isTocaBarco()) {
 			if(rDisp.getBarcoAtacado().getHundido()) {
 				pintarCasillas(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial(), pMapaBotones, Color.DARK_GRAY);
+			}else if(rDisp.isHayEscudo()) {
+				pintarCasillas(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial(), pMapaBotones, Color.YELLOW);
 			}else 
 				pMapaBotones.get(rDisp.getCoorDisparo()).setBackground(Color.red);
 			
@@ -278,7 +284,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	
 	private void escudoUsado(RegistroDisparo rDisp) {
 		if(rDisp.getBarcoAtacado() != null)
-			pintarCasillas(1, true, rDisp.getCoorDisparo(), botonesCoordenadaABotonPanelIzq, Color.ORANGE);
+			pintarCasillas(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial(), botonesCoordenadaABotonPanelIzq, Color.ORANGE);
 	}
 	
 	private void radarUsado(RegistroDisparo rDisp) {
