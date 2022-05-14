@@ -28,8 +28,10 @@ public class Radar {
 		Object[] listaCoordenadas;
 		Coordenada primera = new Coordenada(coordenada.getX()-4, coordenada.getY()-4);
 		Coordenada ultima = new Coordenada(coordenada.getX()+4, coordenada.getY()+4);
-		listaCoordenadas = pTablero.getStreamCoordenadas(primera, ultima).filter(c -> pTablero.hayBarco(c)).toArray();
-		return pTablero.getCasilla((Coordenada) listaCoordenadas[0]).getBarco();
+		listaCoordenadas = pTablero.getStreamCoordenadas(primera, ultima).filter(c -> pTablero.hayBarco(c) && !pTablero.getCasilla(c).getBarco().getHundido()).toArray();
+		if(  listaCoordenadas.length != 0)
+			return pTablero.getCasilla((Coordenada) listaCoordenadas[0]).getBarco();
+		return null;
 	}
 
 	public int getConsultasPosibles() {

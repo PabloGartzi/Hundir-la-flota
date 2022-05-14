@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.JTextComponent;
 import javax.swing.JFormattedTextField;
 
 public class NoMunicion extends JDialog {
@@ -15,7 +16,7 @@ public class NoMunicion extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-
+	private JTextComponent frmtdtxtfldNoQuedaMunicin;
 	/**
 	 * Launch the application.
 	 */
@@ -39,7 +40,7 @@ public class NoMunicion extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		JFormattedTextField frmtdtxtfldNoQuedaMunicin = new JFormattedTextField();
+		frmtdtxtfldNoQuedaMunicin = new JFormattedTextField();
 		frmtdtxtfldNoQuedaMunicin.setEditable(false);
 		frmtdtxtfldNoQuedaMunicin.setText("No queda munición en  el arma elegida, turno perdido.");
 		contentPanel.add(frmtdtxtfldNoQuedaMunicin);
@@ -48,6 +49,10 @@ public class NoMunicion extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			
 		}
+	}
+	
+	public void setTexto(String pTexto) {
+		frmtdtxtfldNoQuedaMunicin.setText(pTexto);
 	}
 
 }

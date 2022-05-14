@@ -283,8 +283,14 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	
 	private void radarUsado(RegistroDisparo rDisp) {
 		Radar radar = rDisp.getRadar();
-		Barco barco = radar.getBarcoDetectado();
-		pintarCasillas(barco.getTamano(), barco.getOrientacion(), barco.getCoordenadaIncial(), botonesCoordenadaABotonPanelDch, Color.MAGENTA);
+		if(radar.getBarcoDetectado() != null) {
+			Barco barco = radar.getBarcoDetectado();
+			pintarCasillas(barco.getTamano(), barco.getOrientacion(), barco.getCoordenadaIncial(), botonesCoordenadaABotonPanelDch, Color.MAGENTA);
+		}else {
+			NoMunicion vNoMunicion = new NoMunicion();
+			vNoMunicion.setTexto("El radar no ha detectado ningún barco cerca");
+			vNoMunicion.setVisible(true);
+		}		
 	}
 	
 	private void pintarCasillas(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada, HashMap<Coordenada, JCheckBox> pMapaBotones, Color pColor) {

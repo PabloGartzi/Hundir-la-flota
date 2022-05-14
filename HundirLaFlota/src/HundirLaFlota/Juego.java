@@ -18,9 +18,6 @@ public class Juego {
 		return mJuego;
 	}
 	
-	public void act() {
-		
-	}
 	public static void inicializar() {
 		humanoJ = crearHumano();
 		ordenadorJ = crearOrdenador();	

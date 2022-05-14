@@ -49,17 +49,24 @@ public abstract class Jugador {
 	public void prepararAccion(Coordenada pCoordenada, TipoDisparo pDisparo) {
 		RegistroDisparo rDisp;
 		if(this.listaArmas[pDisparo.getOrden()] >= 1) {
-			if(pDisparo.equals(TipoDisparo.ESCUDO)) {
-				rDisp = this.accion(pCoordenada, pDisparo);
+			switch (pDisparo) {
+				case BOMBA:
+				case MISIL:
+					rDisp = jugadorOponente.accion(pCoordenada, pDisparo);
+					support.firePropertyChange("tableroBarco", null, rDisp);
+					break;
+				case ESCUDO:
+					this.accion(pCoordenada, pDisparo);
+					break;		
+				case RADAR:
+					rDisp = jugadorOponente.accion(pCoordenada, pDisparo);
+					support.firePropertyChange("radar", null, rDisp);
+					break;	
 			}
-			else {
-				rDisp = jugadorOponente.accion(pCoordenada, pDisparo);
-			}
-			support.firePropertyChange("tableroBarco", null, rDisp);
 		}
-		else {
+		else 
 			support.firePropertyChange("noQuedaMunicion", null, null);	
-		}
+			
 	}
 
 		
