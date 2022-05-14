@@ -1,12 +1,13 @@
 package HundirLaFlota;
 
-
+//Es un Singleton
 public class Juego {
 	private static Juego mJuego = new Juego();
 	public static Humano humanoJ;
 	public static Ordenador ordenadorJ;
 	private TipoBarco[] listaTiposBarco = { TipoBarco.PORTAAVIONES, TipoBarco.SUBMARINO, TipoBarco.SUBMARINO, TipoBarco.DESTRUCTOR, TipoBarco.DESTRUCTOR, TipoBarco.DESTRUCTOR, TipoBarco.FRAGATA, TipoBarco.FRAGATA, TipoBarco.FRAGATA, TipoBarco.FRAGATA};
 	
+	//Main para iniciar el juego
 	public static void main(String[] args) {
 		inicializar();
 	}
@@ -14,10 +15,12 @@ public class Juego {
 	private Juego() {
 		mJuego = this;
 	}
+	
 	public static Juego getMJuego() {
 		return mJuego;
 	}
 	
+	//Creo al jugador humano y al ordenador y añado a ambos como el jugador oponente del otro
 	public static void inicializar() {
 		humanoJ = crearHumano();
 		ordenadorJ = crearOrdenador();	
