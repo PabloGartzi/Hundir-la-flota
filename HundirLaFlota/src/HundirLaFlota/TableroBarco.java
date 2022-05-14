@@ -77,6 +77,9 @@ public class TableroBarco {
 			pBarco.setTurnosEscudo(pBarco.getTurnosEscudo()-1);
 		}
 		
+		if(pBarco.getHundido())
+			barcosHundidos.add(pBarco);
+		
 		return generarRegistroDisparo(pCoordenada, pBarco, true, null);
 	}
 	
@@ -86,11 +89,12 @@ public class TableroBarco {
 			for(int i=0; i<pBarco.getTamano(); i++) {
 				pBarco.tocarParte(i);
 			}	
+			barcosHundidos.add(pBarco);
 		}
 		else {
 			pBarco.setTurnosEscudo(pBarco.getTurnosEscudo()-1);
 		}
-		
+				
 		return generarRegistroDisparo(pCoordenada, pBarco, true, null);
 	}
 	
