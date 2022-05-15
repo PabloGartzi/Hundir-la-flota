@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JFormattedTextField;
 
 public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
@@ -38,6 +39,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	private HashMap<Coordenada, JCheckBox> botonesCoordenadaABotonPanelDch;
 	private HashMap<ButtonModel, JCheckBox> botonesModeloABoton;
 	private HashMap<ButtonModel, TipoDisparo> botonesModeloABotonAccion;
+	private HashMap<ButtonModel, TipoDisparo> botonesModeloACompra;
 	private Humano jHumano = Humano.getHumano();
 	private Ordenador jOrdenador = Ordenador.getOrdenador();
 
@@ -66,6 +68,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		botonesCoordenadaABotonPanelDch = new HashMap<>();
 		botonesModeloABoton = new HashMap<>();
 		botonesModeloABotonAccion = new HashMap<>();
+		botonesModeloACompra = new HashMap<>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1212, 602);
 		contentPane = new JPanel();
@@ -82,25 +85,42 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
 		JPanel panel_7 = new JPanel();
 		panel_1.add(panel_7);
-		panel_7.setLayout(new GridLayout(4, 0, 0, 0));
+		panel_7.setLayout(new GridLayout(5, 0, 0, 0));
+		
+		JRadioButton rdbtnBomba = new JRadioButton("Bomba (0€)");
+		botonesCompra.add(rdbtnBomba);
+		botonesModeloACompra.put(rdbtnBomba.getModel(), TipoDisparo.BOMBA);
+		panel_7.add(rdbtnBomba);
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Misil (40\u20AC)");
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Misil (70€)");
 		botonesCompra.add(rdbtnNewRadioButton);
+		botonesModeloACompra.put(rdbtnNewRadioButton.getModel(), TipoDisparo.MISIL);
 		panel_7.add(rdbtnNewRadioButton);
 
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Escudo (80\u20AC)");
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Escudo (100€)");
 		botonesCompra.add(rdbtnNewRadioButton_1);
+		botonesModeloACompra.put(rdbtnNewRadioButton_1.getModel(), TipoDisparo.ESCUDO);
 		panel_7.add(rdbtnNewRadioButton_1);
 
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Radar (100\u20AC)");
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Radar (200€)");
 		botonesCompra.add(rdbtnNewRadioButton_2);
+		botonesModeloACompra.put(rdbtnNewRadioButton_2.getModel(), TipoDisparo.RADAR);
 		panel_7.add(rdbtnNewRadioButton_2);
 
 		JButton btnNewButton_3 = new JButton("COMPRAR");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jHumano.comprar(botonesModeloACompra.get(botonesCompra.getSelection()));
+			}
+		});
 		panel_7.add(btnNewButton_3);
 
 		JPanel panel_8 = new JPanel();
 		panel_1.add(panel_8);
+		
+		JTextPane txtpnDinero = new JTextPane();
+		txtpnDinero.setText("Dinero : 1000€");
+		panel_8.add(txtpnDinero);
 
 		JPanel panel_9 = new JPanel();
 		panel_1.add(panel_9);
@@ -154,19 +174,13 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3, BorderLayout.SOUTH);
 
-		JButton btnNewButton = new JButton("New button");
-		panel_3.add(btnNewButton);
-
-		JButton btnNewButton_1 = new JButton("Reparar");
+		JButton btnNewButton_1 = new JButton("Reparar 100€");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jHumano.reparar(botonesModeloACoordenada.get(botonesTableroBarcos.getSelection()));
 			}
 		});
 		panel_3.add(btnNewButton_1);
-
-		JButton btnNewButton_2 = new JButton("New button");
-		panel_3.add(btnNewButton_2);
 
 		JPanel panel_4 = new JPanel();
 		contentPane.add(panel_4, BorderLayout.CENTER);

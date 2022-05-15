@@ -1,7 +1,7 @@
 package HundirLaFlota;
 
 public enum TipoDisparo {
-	BOMBA(0, 0), MISIL(1, 10), ESCUDO(2, 20), RADAR(3, 20);
+	BOMBA(0, 0), MISIL(1, 70), ESCUDO(2, 100), RADAR(3, 200);
 	
 	private final int ordenArma;
 	private final int precio;

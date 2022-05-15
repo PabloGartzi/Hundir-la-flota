@@ -26,6 +26,14 @@ public abstract class Jugador {
 		jugadorOponente = pJugador;
 	}
 	
+	public void comprar(TipoDisparo pDisparo) {
+		listaArmas[pDisparo.getOrden()] += 1;
+		dinero -= pDisparo.getPrecio();
+		Almacen almacen = Almacen.getAlmacen();
+		almacen.comprar(pDisparo.getOrden());
+		support.firePropertyChange("compra", dinero, dinero);
+	}
+	
 	public RegistroDisparo accion(Coordenada pCoordenada, TipoDisparo pDisparo) {
 		RegistroDisparo rDisp = null;
 		
@@ -63,6 +71,7 @@ public abstract class Jugador {
 					support.firePropertyChange("radar", null, rDisp);
 					break;	
 			}
+			this.listaArmas[pDisparo.getOrden()] -= 1;
 		}
 		else 
 			support.firePropertyChange("noQuedaMunicion", null, null);	
