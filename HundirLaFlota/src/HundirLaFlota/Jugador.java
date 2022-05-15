@@ -7,10 +7,11 @@ import java.util.Random;
 public abstract class Jugador {
 	
 	private int dinero;
-	protected Integer[] listaArmas = {1000, 5, 5, 1};
+	protected Integer[] listaArmas = {1000, 5, 1, 1};
 	private TableroBarco tableroBarco;
 	private Jugador jugadorOponente;
 	private Random ran = new Random();
+	private Almacen almacen;
 	
 	private PropertyChangeSupport support;
 	
@@ -18,20 +19,21 @@ public abstract class Jugador {
 		tableroBarco = new TableroBarco();	
 		support = new PropertyChangeSupport(this);
 		dinero = 1000;
-		//TODO usar dinero
-
 	}
 	
 	public void setOponente(Jugador pJugador) {
 		jugadorOponente = pJugador;
 	}
 	
+	public void setAlmacen(Almacen pAlmacen) {
+		almacen = pAlmacen;
+	}
+	
 	public void comprar(TipoDisparo pDisparo) {
 		listaArmas[pDisparo.getOrden()] += 1;
 		dinero -= pDisparo.getPrecio();
-		Almacen almacen = Almacen.getAlmacen();
 		almacen.comprar(pDisparo.getOrden());
-		support.firePropertyChange("compra", dinero, dinero);
+		support.firePropertyChange("compra", (Integer) dinero, (Integer) listaArmas[pDisparo.getOrden()]);
 	}
 	
 	public RegistroDisparo accion(Coordenada pCoordenada, TipoDisparo pDisparo) {
@@ -41,13 +43,13 @@ public abstract class Jugador {
 		switch (pDisparo) {
 			case BOMBA:
 			case MISIL:
-				support.firePropertyChange("tableroDisparo", null, rDisp);
+				support.firePropertyChange("tableroDisparo", listaArmas[pDisparo.getOrden()], rDisp);
 				break;
 			case ESCUDO:
-				support.firePropertyChange("escudo", null, rDisp);
+				support.firePropertyChange("escudo", listaArmas[pDisparo.getOrden()], rDisp);
 				break;		
 			case RADAR:
-				support.firePropertyChange("radar", null, rDisp);
+				support.firePropertyChange("radar", listaArmas[pDisparo.getOrden()], rDisp);
 				break;			
 		}
 		
@@ -57,21 +59,21 @@ public abstract class Jugador {
 	public void prepararAccion(Coordenada pCoordenada, TipoDisparo pDisparo) {
 		RegistroDisparo rDisp;
 		if(this.listaArmas[pDisparo.getOrden()] >= 1) {
+			this.listaArmas[pDisparo.getOrden()] -= 1;
 			switch (pDisparo) {
 				case BOMBA:
 				case MISIL:
 					rDisp = jugadorOponente.accion(pCoordenada, pDisparo);
-					support.firePropertyChange("tableroBarco", null, rDisp);
+					support.firePropertyChange("tableroBarco", listaArmas[pDisparo.getOrden()], rDisp);
 					break;
 				case ESCUDO:
 					this.accion(pCoordenada, pDisparo);
 					break;		
 				case RADAR:
 					rDisp = jugadorOponente.accion(pCoordenada, pDisparo);
-					support.firePropertyChange("radar", null, rDisp);
+					support.firePropertyChange("radar", listaArmas[pDisparo.getOrden()], rDisp);
 					break;	
-			}
-			this.listaArmas[pDisparo.getOrden()] -= 1;
+			}		
 		}
 		else 
 			support.firePropertyChange("noQuedaMunicion", null, null);	
@@ -82,7 +84,8 @@ public abstract class Jugador {
 	public void reparar(Coordenada pCoordenada) {
 		if(this.tableroBarco.hayBarco(pCoordenada) && !this.tableroBarco.getCasilla(pCoordenada).getBarco().getHundido()) {
 			this.tableroBarco.getCasilla(pCoordenada).getBarco().reparar();
-			support.firePropertyChange("barcoReparado", null, this.tableroBarco.getCasilla(pCoordenada).getBarco());
+			dinero -= 100;
+			support.firePropertyChange("barcoReparado", dinero, this.tableroBarco.getCasilla(pCoordenada).getBarco());
 		}
 	}
 	

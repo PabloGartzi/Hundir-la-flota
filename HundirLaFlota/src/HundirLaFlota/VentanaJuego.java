@@ -39,9 +39,12 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	private HashMap<Coordenada, JCheckBox> botonesCoordenadaABotonPanelDch;
 	private HashMap<ButtonModel, JCheckBox> botonesModeloABoton;
 	private HashMap<ButtonModel, TipoDisparo> botonesModeloABotonAccion;
+	private HashMap<TipoDisparo, JRadioButton> botonesTipoDisparoABotonAccion;
 	private HashMap<ButtonModel, TipoDisparo> botonesModeloACompra;
 	private Humano jHumano = Humano.getHumano();
 	private Ordenador jOrdenador = Ordenador.getOrdenador();
+	
+	private JTextPane txtpnDinero;
 
 	/**
 	 * Launch the application.
@@ -69,6 +72,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		botonesModeloABoton = new HashMap<>();
 		botonesModeloABotonAccion = new HashMap<>();
 		botonesModeloACompra = new HashMap<>();
+		botonesTipoDisparoABotonAccion = new HashMap<>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1212, 602);
 		contentPane = new JPanel();
@@ -87,24 +91,24 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		panel_1.add(panel_7);
 		panel_7.setLayout(new GridLayout(5, 0, 0, 0));
 		
-		JRadioButton rdbtnBomba = new JRadioButton("Bomba (0€)");
+		JRadioButton rdbtnBomba = new JRadioButton("BOMBA (0€)");
 		botonesCompra.add(rdbtnBomba);
 		botonesModeloACompra.put(rdbtnBomba.getModel(), TipoDisparo.BOMBA);
 		panel_7.add(rdbtnBomba);
 
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Misil (70€)");
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("MISIL (70€)");
 		botonesCompra.add(rdbtnNewRadioButton);
 		botonesModeloACompra.put(rdbtnNewRadioButton.getModel(), TipoDisparo.MISIL);
 		panel_7.add(rdbtnNewRadioButton);
 
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Escudo (100€)");
-		botonesCompra.add(rdbtnNewRadioButton_1);
-		botonesModeloACompra.put(rdbtnNewRadioButton_1.getModel(), TipoDisparo.ESCUDO);
-		panel_7.add(rdbtnNewRadioButton_1);
-
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Radar (200€)");
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("RADAR (200€)");
 		botonesCompra.add(rdbtnNewRadioButton_2);
 		botonesModeloACompra.put(rdbtnNewRadioButton_2.getModel(), TipoDisparo.RADAR);
+		
+				JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("ESCUDO (100€)");
+				botonesCompra.add(rdbtnNewRadioButton_1);
+				botonesModeloACompra.put(rdbtnNewRadioButton_1.getModel(), TipoDisparo.ESCUDO);
+				panel_7.add(rdbtnNewRadioButton_1);
 		panel_7.add(rdbtnNewRadioButton_2);
 
 		JButton btnNewButton_3 = new JButton("COMPRAR");
@@ -118,7 +122,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		JPanel panel_8 = new JPanel();
 		panel_1.add(panel_8);
 		
-		JTextPane txtpnDinero = new JTextPane();
+		txtpnDinero = new JTextPane();
 		txtpnDinero.setText("Dinero : 1000€");
 		panel_8.add(txtpnDinero);
 
@@ -137,25 +141,30 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		txtpnArmas.setText("HERRAMIENTAS");
 		panel_10.add(txtpnArmas);
 
-		JRadioButton botonBomba = new JRadioButton("Bomba (100)");
+		JRadioButton botonBomba = new JRadioButton("BOMBA (1000)");
 		botonesAccion.add(botonBomba);
 		botonesModeloABotonAccion.put(botonBomba.getModel(), TipoDisparo.BOMBA);
+		botonesTipoDisparoABotonAccion.put(TipoDisparo.BOMBA, botonBomba);
 		panel_10.add(botonBomba);
 
-		JRadioButton botonMisil = new JRadioButton("Misiles (10)");
+		JRadioButton botonMisil = new JRadioButton("MISIL (5)");
 		botonesAccion.add(botonMisil);
 		botonesModeloABotonAccion.put(botonMisil.getModel(), TipoDisparo.MISIL);
+		botonesTipoDisparoABotonAccion.put(TipoDisparo.MISIL, botonMisil);
 		panel_10.add(botonMisil);
 
-		JRadioButton botonRadar = new JRadioButton("Radar");
+		JRadioButton botonRadar = new JRadioButton("RADAR (1)");
 		botonesAccion.add(botonRadar);
 		botonesModeloABotonAccion.put(botonRadar.getModel(), TipoDisparo.RADAR);
+		botonesTipoDisparoABotonAccion.put(TipoDisparo.RADAR, botonRadar);
 		panel_10.add(botonRadar);
-
-		JRadioButton botonEscudo = new JRadioButton("Escudo");
+		
+		JRadioButton botonEscudo = new JRadioButton("ESCUDO (1)");
 		botonesAccion.add(botonEscudo);
 		botonesModeloABotonAccion.put(botonEscudo.getModel(), TipoDisparo.ESCUDO);
+		botonesTipoDisparoABotonAccion.put(TipoDisparo.ESCUDO, botonEscudo);
 		panel_10.add(botonEscudo);
+		
 
 		JButton btnNewButton_4 = new JButton("Acción");
 		btnNewButton_4.addActionListener(new ActionListener() {
@@ -250,10 +259,10 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		
 		if(evt.getPropertyName().equals("tableroBarco")) {
-			cambioTablero((RegistroDisparo) evt.getNewValue(), botonesCoordenadaABotonPanelDch);
+			cambioTablero((RegistroDisparo) evt.getNewValue(), botonesCoordenadaABotonPanelDch, (int) evt.getOldValue());
 		} 
 		else if(evt.getPropertyName().equals("tableroDisparo")){
-			cambioTablero((RegistroDisparo) evt.getNewValue(), botonesCoordenadaABotonPanelIzq);
+			cambioTablero((RegistroDisparo) evt.getNewValue(), botonesCoordenadaABotonPanelIzq, (int) evt.getOldValue());
 		} 
 		else if(evt.getPropertyName().equals("barcoReparado")) {
 			cambioBarcoReparado(evt);
@@ -262,15 +271,18 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			avisoMunicion();
 		}
 		else if(evt.getPropertyName().equals("escudo")) {
-			escudoUsado((RegistroDisparo) evt.getNewValue());
+			escudoUsado((RegistroDisparo) evt.getNewValue(), (int) evt.getOldValue());
 		}
 		else if(evt.getPropertyName().equals("radar")) {
-			radarUsado((RegistroDisparo) evt.getNewValue());
+			radarUsado((RegistroDisparo) evt.getNewValue(), (int) evt.getOldValue());
+		}
+		else if(evt.getPropertyName().equals("compra")) {
+			compraHecha(botonesModeloACompra.get(botonesCompra.getSelection()), (Integer) evt.getOldValue(), (Integer) evt.getNewValue());
 		}
 		
 	}	
 	
-	private void cambioTablero(RegistroDisparo rDisp, HashMap<Coordenada, JCheckBox> pMapaBotones) {
+	private void cambioTablero(RegistroDisparo rDisp, HashMap<Coordenada, JCheckBox> pMapaBotones, int pCantidadArma) {
 		if (rDisp.isFinJuego()) {
 			finalizarJuego(rDisp);
 		} else if (rDisp.isTocaBarco()) {
@@ -285,10 +297,12 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			else {
 				pMapaBotones.get(rDisp.getCoorDisparo()).setBackground(Color.blue);
 		}
+		botonesTipoDisparoABotonAccion.get(rDisp.getTipoDeDisparo()).setText(rDisp.getTipoDeDisparo().toString() + "("+pCantidadArma+")");
 	}
 
 	private void cambioBarcoReparado(PropertyChangeEvent evt) {
 		pintarCasillas(((Barco) evt.getNewValue()).getTamano(), ((Barco) evt.getNewValue()).getOrientacion(), ((Barco) evt.getNewValue()).getCoordenadaIncial(), botonesCoordenadaABotonPanelIzq, Color.GREEN);
+		txtpnDinero.setText("Dinero: "+(Integer)evt.getOldValue()+"€");
 	}
 	
 	private void avisoMunicion() {
@@ -296,12 +310,13 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		vNoMunicion.setVisible(true);
 	}
 	
-	private void escudoUsado(RegistroDisparo rDisp) {
+	private void escudoUsado(RegistroDisparo rDisp, int pCantidadArma) {
 		if(rDisp.getBarcoAtacado() != null)
 			pintarCasillas(rDisp.getBarcoAtacado().getTamano(), rDisp.getBarcoAtacado().getOrientacion(), rDisp.getBarcoAtacado().getCoordenadaIncial(), botonesCoordenadaABotonPanelIzq, Color.ORANGE);
+		botonesTipoDisparoABotonAccion.get(rDisp.getTipoDeDisparo()).setText(rDisp.getTipoDeDisparo().toString() + "("+pCantidadArma+")");
 	}
 	
-	private void radarUsado(RegistroDisparo rDisp) {
+	private void radarUsado(RegistroDisparo rDisp, int pCantidadArma) {
 		Radar radar = rDisp.getRadar();
 		if(radar.getBarcoDetectado() != null) {
 			Barco barco = radar.getBarcoDetectado();
@@ -310,7 +325,8 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 			NoMunicion vNoMunicion = new NoMunicion();
 			vNoMunicion.setTexto("El radar no ha detectado ningún barco cerca");
 			vNoMunicion.setVisible(true);
-		}		
+		}
+		botonesTipoDisparoABotonAccion.get(rDisp.getTipoDeDisparo()).setText(rDisp.getTipoDeDisparo().toString() + "("+pCantidadArma+")");
 	}
 	
 	private void pintarCasillas(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada, HashMap<Coordenada, JCheckBox> pMapaBotones, Color pColor) {
@@ -341,7 +357,11 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		}
 		setVisible(false);
 		vFin.setVisible(true);
-
+	}
+	
+	private void compraHecha(TipoDisparo pDisparo, int pDinero, int pCantidad) {
+		botonesTipoDisparoABotonAccion.get(pDisparo).setText(pDisparo.toString() + "("+pCantidad+")");
+		txtpnDinero.setText("Dinero: "+pDinero+"€");
 	}
 	
 }

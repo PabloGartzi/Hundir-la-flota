@@ -47,7 +47,7 @@ public class RegistroDisparo {
 		setCoorDisparo(pCoordenada);
 		setBarcoAtacado(pBarco);
 		setTocaBarco(false);
-		setTipoDeDisparo(null);
+		setTipoDeDisparo(TipoDisparo.ESCUDO);
 		setFinJuego(false);
 		setGanador(false);
 		setHayEscudo(false);
@@ -61,7 +61,7 @@ public class RegistroDisparo {
 		setCoorDisparo(null);
 		setBarcoAtacado(null);
 		setTocaBarco(false);
-		setTipoDeDisparo(null);
+		setTipoDeDisparo(TipoDisparo.RADAR);
 		setFinJuego(false);
 		setGanador(false);
 		setHayEscudo(false);

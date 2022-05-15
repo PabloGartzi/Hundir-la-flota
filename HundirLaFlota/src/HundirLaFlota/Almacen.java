@@ -2,7 +2,7 @@ package HundirLaFlota;
 
 
 public class Almacen {
-	private static Almacen mAlmacen;
+	private static Almacen mAlmacen = new Almacen();
 	private Integer[] listaArmamento;
 	
 	private Almacen() {

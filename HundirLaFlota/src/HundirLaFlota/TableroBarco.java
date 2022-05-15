@@ -70,15 +70,15 @@ public class TableroBarco {
 	
 	private RegistroDisparo disparoBomba(Barco pBarco, Coordenada pCoordenada) {
 		if(pBarco.getTurnosEscudo() == 0) {
-		int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
-		pBarco.tocarParte(posicion);
-		if(pBarco.getHundido() && !barcosHundidos.contains(pBarco))
-			barcosHundidos.add(pBarco);
-		return generarRegistroDisparo(pCoordenada, pBarco, true, null, false);
+			int posicion = pCoordenada.getX() - pBarco.getCoordenadaIncial().getX() + pCoordenada.getY() - pBarco.getCoordenadaIncial().getY();
+			pBarco.tocarParte(posicion);
+			if(pBarco.getHundido() && !barcosHundidos.contains(pBarco))
+				barcosHundidos.add(pBarco);
+			return generarRegistroDisparo(pCoordenada, pBarco, true, TipoDisparo.BOMBA, false);
 		}
 		else {
 			pBarco.setTurnosEscudo(pBarco.getTurnosEscudo()-1);
-			return generarRegistroDisparo(pCoordenada, pBarco, true, null, true);
+			return generarRegistroDisparo(pCoordenada, pBarco, true, TipoDisparo.BOMBA, true);
 		}
 		
 	}
@@ -91,11 +91,11 @@ public class TableroBarco {
 			}
 			if(!barcosHundidos.contains(pBarco))
 				barcosHundidos.add(pBarco);
-			return generarRegistroDisparo(pCoordenada, pBarco, true, null, false);
+			return generarRegistroDisparo(pCoordenada, pBarco, true, TipoDisparo.MISIL, false);
 		}
 		else {
 			pBarco.setTurnosEscudo(pBarco.getTurnosEscudo()-1);
-			return generarRegistroDisparo(pCoordenada, pBarco, true, null, true);
+			return generarRegistroDisparo(pCoordenada, pBarco, true, TipoDisparo.MISIL, true);
 		}
 	}
 	

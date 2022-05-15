@@ -6,7 +6,7 @@ public class Juego {
 	public static Humano humanoJ;
 	public static Ordenador ordenadorJ;
 	private TipoBarco[] listaTiposBarco = { TipoBarco.PORTAAVIONES, TipoBarco.SUBMARINO, TipoBarco.SUBMARINO, TipoBarco.DESTRUCTOR, TipoBarco.DESTRUCTOR, TipoBarco.DESTRUCTOR, TipoBarco.FRAGATA, TipoBarco.FRAGATA, TipoBarco.FRAGATA, TipoBarco.FRAGATA};
-	
+	private static Almacen almacen;
 	//Main para iniciar el juego
 	public static void main(String[] args) {
 		inicializar();
@@ -24,8 +24,11 @@ public class Juego {
 	public static void inicializar() {
 		humanoJ = crearHumano();
 		ordenadorJ = crearOrdenador();	
+		almacen = crearAlmacen();
 		humanoJ.setOponente(ordenadorJ);
 		ordenadorJ.setOponente(humanoJ);
+		humanoJ.setAlmacen(almacen);
+		ordenadorJ.setAlmacen(almacen);
 		VentanaInicial vI = new VentanaInicial();
 		vI.setVisible(true);
 	}
@@ -38,6 +41,11 @@ public class Juego {
 	private static Ordenador crearOrdenador() {
 		Ordenador jugadorO = Ordenador.getOrdenador();
 		return jugadorO;
+	}
+	
+	private static Almacen crearAlmacen() {
+		Almacen nAlmacen = Almacen.getAlmacen();
+		return nAlmacen;
 	}
 	
 	public TipoBarco[] getTiposBarco() {
