@@ -20,7 +20,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JFormattedTextField;
 
 public class VentanaJuego extends JFrame implements PropertyChangeListener {
 
