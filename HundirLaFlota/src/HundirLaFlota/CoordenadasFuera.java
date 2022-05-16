@@ -14,6 +14,7 @@ public class CoordenadasFuera extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -21,6 +22,7 @@ public class CoordenadasFuera extends JDialog {
 	public static void main(String[] args) {
 		try {
 			CoordenadasFuera dialog = new CoordenadasFuera();
+			dialog.setTitle("ERROR");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -40,10 +42,14 @@ public class CoordenadasFuera extends JDialog {
 			getContentPane().add(contentPanel, BorderLayout.CENTER);
 			contentPanel.setLayout(new FlowLayout());
 			{
-				JLabel lblNewLabel = new JLabel("Aguna casilla del barco está fuera del terreno, \n elija otro lugar.");
+				lblNewLabel = new JLabel("Aguna casilla del barco está fuera del terreno, \n elija otro lugar.");
 				contentPanel.add(lblNewLabel);
 			}
 		}
+	}
+	
+	public void setText(String pString) {
+		lblNewLabel.setText(pString);
 	}
 
 }

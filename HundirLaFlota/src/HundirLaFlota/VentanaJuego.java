@@ -114,7 +114,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		JButton btnNewButton_3 = new JButton("COMPRAR");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jHumano.comprar(botonesModeloACompra.get(botonesCompra.getSelection()));
+				comprar();
 			}
 		});
 		panel_7.add(btnNewButton_3);
@@ -169,13 +169,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		JButton btnNewButton_4 = new JButton("Acción");
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(botonesModeloABotonAccion.get(botonesAccion.getSelection()).equals(TipoDisparo.ESCUDO))
-					jHumano.prepararAccion(botonesModeloACoordenada.get(botonesTableroBarcos.getSelection()),
-							botonesModeloABotonAccion.get(botonesAccion.getSelection()));	
-				else
-					jHumano.prepararAccion(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
-							botonesModeloABotonAccion.get(botonesAccion.getSelection()));	
-				jOrdenador.actuar();
+				accion();
 			}
 		});
 		panel_10.add(btnNewButton_4);
@@ -186,7 +180,7 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		JButton btnNewButton_1 = new JButton("Reparar 100€");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jHumano.reparar(botonesModeloACoordenada.get(botonesTableroBarcos.getSelection()));
+				reparar();
 			}
 		});
 		panel_3.add(btnNewButton_1);
@@ -255,6 +249,39 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 		botonesModeloABoton.put(pBoton.getModel(), pBoton);
 	}
 
+	private void accion() {
+		if(botonesAccion.getSelection() != null) {
+			if(botonesModeloABotonAccion.get(botonesAccion.getSelection()).equals(TipoDisparo.ESCUDO) && botonesTableroBarcos.getSelection() != null)
+				jHumano.prepararAccion(botonesModeloACoordenada.get(botonesTableroBarcos.getSelection()),
+						botonesModeloABotonAccion.get(botonesAccion.getSelection()));	
+			else if (botonesTableroDisparo.getSelection() != null)
+				jHumano.prepararAccion(botonesModeloACoordenada.get(botonesTableroDisparo.getSelection()),
+						botonesModeloABotonAccion.get(botonesAccion.getSelection()));	
+			else
+				mostrarError("No has elegido una casilla, pierdes el turno");
+			jOrdenador.actuar();
+			limpiarSelecciones();
+		}
+		else 
+			mostrarError("Selecciona un arma o herramienta");
+	}
+	
+	private void reparar() {
+		if(botonesTableroBarcos.getSelection() != null)
+			jHumano.reparar(botonesModeloACoordenada.get(botonesTableroBarcos.getSelection()));
+		else
+			mostrarError("Selecciona una casilla de tu tablero");
+		limpiarSelecciones();
+	}
+	
+	private void comprar() {
+		if(botonesCompra.getSelection() != null)
+			jHumano.comprar(botonesModeloACompra.get(botonesCompra.getSelection()));
+		else
+			mostrarError("Selecciona el objeto a comprar");
+		limpiarSelecciones();
+	}
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		
@@ -362,6 +389,20 @@ public class VentanaJuego extends JFrame implements PropertyChangeListener {
 	private void compraHecha(TipoDisparo pDisparo, int pDinero, int pCantidad) {
 		botonesTipoDisparoABotonAccion.get(pDisparo).setText(pDisparo.toString() + "("+pCantidad+")");
 		txtpnDinero.setText("Dinero: "+pDinero+"€");
+	}
+	
+	private void mostrarError(String pString) {
+		CoordenadasFuera vCoorFue = new CoordenadasFuera();
+		vCoorFue.setVisible(true);
+		vCoorFue.setText(pString);
+		limpiarSelecciones();				
+	}
+	
+	private void limpiarSelecciones() {
+		botonesTableroBarcos.clearSelection();
+		botonesTableroDisparo.clearSelection();
+		botonesAccion.clearSelection();
+		botonesCompra.clearSelection();
 	}
 	
 }

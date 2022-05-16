@@ -152,26 +152,25 @@ public class VentanaColocarBarcos extends JFrame implements PropertyChangeListen
 			btnNewButton = new JButton("Colocar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.out.println(botonesEleccion.get(eleccionCasilla.getSelection()));
-						if(!coordenadasDentro(botonesEleccion.get(eleccionCasilla.getSelection()), barcosAColocar[barcosColocarIndiceIterador].getTamano(),rdbtnNewRadioButton.isSelected())) {
-							CoordenadasFuera vCoorFue = new CoordenadasFuera();
-							vCoorFue.setVisible(true);
-							eleccionCasilla.clearSelection();
-							buttonGroup.clearSelection();
-						}
-						else {
-							enviarInformacionBarco();
-						}
-					
-					
+					if(eleccionCasilla.getSelection() != null) {
+						System.out.println(botonesEleccion.get(eleccionCasilla.getSelection()));
+							if(!coordenadasDentro(botonesEleccion.get(eleccionCasilla.getSelection()), barcosAColocar[barcosColocarIndiceIterador].getTamano(),rdbtnNewRadioButton.isSelected())) {
+								mostrarError("El barco está fuera del tablero, elije otra posición");
+							}
+							else {
+								enviarInformacionBarco();
+							}
+					}
+					else {
+						mostrarError("Elije una casilla");
+					}
 				}
 			});
 		}
 		return btnNewButton;
 	}
 	
-	private void enviarInformacionBarco(){
-		
+	private void enviarInformacionBarco(){	
 		if(!jHumano.hayBarcoEnZona(barcosAColocar[barcosColocarIndiceIterador], botonesEleccion.get(eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected())) {
 			jHumano.colocarBarco(barcosAColocar[barcosColocarIndiceIterador], botonesEleccion.get( eleccionCasilla.getSelection()), rdbtnNewRadioButton.isSelected());
 			pintarCasillas(barcosAColocar[barcosColocarIndiceIterador].getTamano(), rdbtnNewRadioButton.isSelected(), botonesEleccion.get(eleccionCasilla.getSelection()));
@@ -191,13 +190,11 @@ public class VentanaColocarBarcos extends JFrame implements PropertyChangeListen
 		}
 	}
 	
-	
 	private void pintarCasillas(int pNumeroCasillas, boolean pDireccion, Coordenada pPrimeraCoordenada) {
 		if(pDireccion) {
 			for(int i=0; i< pNumeroCasillas; i++) {
 				Coordenada nCoord = new Coordenada(pPrimeraCoordenada.getX()+i, pPrimeraCoordenada.getY());
 				botonesCoordenadaBoton.get(nCoord).setBackground(Color.YELLOW);
-				
 			}
 		}
 		else {
@@ -242,6 +239,14 @@ public class VentanaColocarBarcos extends JFrame implements PropertyChangeListen
 		if(evt.getPropertyName().equals("barcoColocado")) {
 			pintarCasillas(((Barco) evt.getNewValue()).getTamano(), ((Barco) evt.getNewValue()).getOrientacion(), ((Barco)evt.getNewValue()).getCoordenadaIncial());
 		}
+	}
+	
+	private void mostrarError(String pString) {
+		CoordenadasFuera vCoorFue = new CoordenadasFuera();
+		vCoorFue.setVisible(true);
+		vCoorFue.setText(pString);
+		eleccionCasilla.clearSelection();
+		buttonGroup.clearSelection();
 	}
 	
 }
