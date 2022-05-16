@@ -142,7 +142,7 @@ public class VentanaColocarBarcos extends JFrame implements PropertyChangeListen
 		if (txtpnTipobarco == null) {
 			txtpnTipobarco = new JTextPane();
 			txtpnTipobarco.setBackground(SystemColor.menu);
-			txtpnTipobarco.setText("TipoBarco");
+			txtpnTipobarco.setText("PORTAAVIONES");
 		}
 		return txtpnTipobarco;
 	}
@@ -181,6 +181,8 @@ public class VentanaColocarBarcos extends JFrame implements PropertyChangeListen
 				VentanaJuego vJuego = new VentanaJuego();
 				vJuego.setVisible(true);
 			}
+			else
+				txtpnTipobarco.setText(barcosAColocar[barcosColocarIndiceIterador].toString());
 		}
 		else {
 			HayBarcoZona vBarcoZona = new HayBarcoZona();

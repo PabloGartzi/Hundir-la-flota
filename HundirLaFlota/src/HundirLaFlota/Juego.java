@@ -7,6 +7,7 @@ public class Juego {
 	public static Ordenador ordenadorJ;
 	private TipoBarco[] listaTiposBarco = { TipoBarco.PORTAAVIONES, TipoBarco.SUBMARINO, TipoBarco.SUBMARINO, TipoBarco.DESTRUCTOR, TipoBarco.DESTRUCTOR, TipoBarco.DESTRUCTOR, TipoBarco.FRAGATA, TipoBarco.FRAGATA, TipoBarco.FRAGATA, TipoBarco.FRAGATA};
 	private static Almacen almacen;
+	
 	//Main para iniciar el juego
 	public static void main(String[] args) {
 		inicializar();
