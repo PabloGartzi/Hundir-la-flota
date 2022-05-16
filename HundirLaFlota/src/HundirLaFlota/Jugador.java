@@ -131,7 +131,16 @@ public abstract class Jugador {
 				i -= 1;
 			}
 		}
-		
+		imprimirBarcos();
+	}
+	
+	private boolean coordenadasDentro(Coordenada pCoord, int pTamano, boolean pDireccion) {
+		if(pDireccion)
+			return pCoord.getX()+pTamano-1<=9;
+		return pCoord.getY()+pTamano-1<=9;
+	}
+	
+	private void imprimirBarcos() {
 		System.out.println(this.getClass().getName());
 		for(int i=0; i<10; i++) {
 			for(int j=0; j<10; j++) {
@@ -145,10 +154,5 @@ public abstract class Jugador {
 		}
 		
 	}
-	
-	private boolean coordenadasDentro(Coordenada pCoord, int pTamano, boolean pDireccion) {
-		if(pDireccion)
-			return pCoord.getX()+pTamano-1<=9;
-		return pCoord.getY()+pTamano-1<=9;
-	}
 }
+
