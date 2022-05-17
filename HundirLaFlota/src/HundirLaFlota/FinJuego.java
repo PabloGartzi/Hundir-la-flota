@@ -3,11 +3,14 @@ package HundirLaFlota;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class FinJuego extends JDialog {
 
@@ -15,7 +18,7 @@ public class FinJuego extends JDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
+	private final JPanel panelGIF = new JPanel();
 	private JTextField txtJuegoterminado;
 
 	/**
@@ -35,16 +38,32 @@ public class FinJuego extends JDialog {
 	 * Create the dialog.
 	 */
 	public FinJuego() {
-		setBounds(100, 100, 450, 300);
+		initialize();
+	}
+
+	private void initialize() {
+		setTitle("Fin del Juego");
+		setBounds(100, 100, 1212, 602);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		panelGIF.setLayout(new FlowLayout());
+		panelGIF.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(panelGIF, BorderLayout.CENTER);
+
 		{
-			txtJuegoterminado = new JTextField();
-			txtJuegoterminado.setText("JuegoTerminado");
-			contentPanel.add(txtJuegoterminado);
-			txtJuegoterminado.setColumns(10);
+			JPanel panelTextoGanador = new JPanel();
+			getContentPane().add(panelTextoGanador, BorderLayout.NORTH);
+			{
+				txtJuegoterminado = new JTextField();
+				panelTextoGanador.add(txtJuegoterminado);
+				txtJuegoterminado.setEditable(false);
+				txtJuegoterminado.setText(" JuegoTerminado");
+				txtJuegoterminado.setColumns(10);
+			}
+			{
+				JLabel gifBarco = new JLabel("");
+				panelGIF.add(gifBarco);
+				gifBarco.setIcon(new ImageIcon(getClass().getResource("/HundirLaFlota/BarcoGif2.gif").getFile()));
+			}
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -63,7 +82,7 @@ public class FinJuego extends JDialog {
 			}
 		}
 	}
-	
+
 	public void setGanador(String pGanador) {
 		txtJuegoterminado.setText(pGanador);
 	}

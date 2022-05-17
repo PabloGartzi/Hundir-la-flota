@@ -25,13 +25,13 @@ public class VentanaInicial extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JPanel panel;
 	private JTextField txtHundirLaFlota;
-	private JTextField textField;
-	private JTextField textField_1;
 	private JTextField textField_2;
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JButton btnNewButton;
 	private JLabel lblNewLabel;
+	private JLabel imgBarcoIzq;
+	private JLabel imgBarcoDch;
 
 	/**
 	 * Launch the application.
@@ -58,7 +58,7 @@ public class VentanaInicial extends JFrame implements ActionListener {
 
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1212, 602);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -71,9 +71,9 @@ public class VentanaInicial extends JFrame implements ActionListener {
 			panel = new JPanel();
 			panel.setLayout(new BorderLayout(0, 0));
 			panel.add(getTxtHundirLaFlota(), BorderLayout.NORTH);
-			panel.add(getTextField(), BorderLayout.WEST);
-			panel.add(getTextField_1(), BorderLayout.EAST);
+			panel.add(getImgBarcoIzq(), BorderLayout.WEST);
 			panel.add(getTextField_2(), BorderLayout.SOUTH);
+			panel.add(getImgBarcoDch(), BorderLayout.EAST);
 			panel.add(getPanel_1(), BorderLayout.CENTER);
 		}
 		return panel;
@@ -89,24 +89,6 @@ public class VentanaInicial extends JFrame implements ActionListener {
 			txtHundirLaFlota.setColumns(10);
 		}
 		return txtHundirLaFlota;
-	}
-
-	private JTextField getTextField() {
-		if (textField == null) {
-			textField = new JTextField();
-			textField.setEditable(false);
-			textField.setColumns(10);
-		}
-		return textField;
-	}
-
-	private JTextField getTextField_1() {
-		if (textField_1 == null) {
-			textField_1 = new JTextField();
-			textField_1.setEditable(false);
-			textField_1.setColumns(10);
-		}
-		return textField_1;
 	}
 
 	private JTextField getTextField_2() {
@@ -143,18 +125,35 @@ public class VentanaInicial extends JFrame implements ActionListener {
 		}
 		return btnNewButton;
 	}
+
 	private JLabel getLblNewLabel() {
 		lblNewLabel = new JLabel();
 		lblNewLabel.setIcon(new ImageIcon("fototarde.jpg"));
 		return lblNewLabel;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(btnNewButton)) {
+		if (e.getSource().equals(btnNewButton)) {
 			this.dispose();
 			VentanaColocarBarcos vCB = new VentanaColocarBarcos();
 			vCB.setVisible(true);
 		}
+	}
+
+	private JLabel getImgBarcoIzq() {
+		if (imgBarcoIzq == null) {
+			imgBarcoIzq = new JLabel("");
+			imgBarcoIzq.setIcon(new ImageIcon(getClass().getResource("/HundirLaFlota/barco2.png").getFile()));
+		}
+		return imgBarcoIzq;
+	}
+
+	private JLabel getImgBarcoDch() {
+		if (imgBarcoDch == null) {
+			imgBarcoDch = new JLabel("");
+			imgBarcoDch.setIcon(new ImageIcon(getClass().getResource("/HundirLaFlota/barco2.png").getFile()));
+		}
+		return imgBarcoDch;
 	}
 }
