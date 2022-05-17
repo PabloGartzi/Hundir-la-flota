@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class FinJuego extends JDialog {
 
@@ -54,6 +55,7 @@ public class FinJuego extends JDialog {
 			getContentPane().add(panelTextoGanador, BorderLayout.NORTH);
 			{
 				txtJuegoterminado = new JTextField();
+				txtJuegoterminado.setFont(new Font("Tahoma", Font.BOLD, 20));
 				panelTextoGanador.add(txtJuegoterminado);
 				txtJuegoterminado.setEditable(false);
 				txtJuegoterminado.setText(" JuegoTerminado");
