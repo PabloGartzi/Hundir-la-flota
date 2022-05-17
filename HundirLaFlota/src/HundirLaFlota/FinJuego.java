@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
 
 public class FinJuego extends JDialog {
@@ -65,22 +64,6 @@ public class FinJuego extends JDialog {
 				JLabel gifBarco = new JLabel("");
 				panelGIF.add(gifBarco);
 				gifBarco.setIcon(new ImageIcon(getClass().getResource("/HundirLaFlota/BarcoGif3.gif").getFile()));
-			}
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
 			}
 		}
 	}
