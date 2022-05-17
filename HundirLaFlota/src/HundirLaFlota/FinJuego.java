@@ -62,7 +62,7 @@ public class FinJuego extends JDialog {
 			{
 				JLabel gifBarco = new JLabel("");
 				panelGIF.add(gifBarco);
-				gifBarco.setIcon(new ImageIcon(getClass().getResource("/HundirLaFlota/BarcoGif2.gif").getFile()));
+				gifBarco.setIcon(new ImageIcon(getClass().getResource("/HundirLaFlota/BarcoGif3.gif").getFile()));
 			}
 		}
 		{
